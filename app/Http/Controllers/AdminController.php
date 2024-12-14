@@ -77,7 +77,7 @@ class AdminController extends Controller
         'transaction_amount' => 'required',
         'method' => 'nullable|string|max:255',
         'fio' => 'nullable|string|max:255',
-        'status' => 'nullable|string|max:255',
+        'status' => 'nullable|string|max:255'
     ]);
 
        if ($transaction->status !== $validated['status'] && $validated['status'] == 'Выполнено') {
