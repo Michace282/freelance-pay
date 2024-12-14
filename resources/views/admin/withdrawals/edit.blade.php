@@ -30,7 +30,7 @@
                 <option {{ $withdrawal->requisites == 'Monero (XMR)' ? 'selected' : '' }} value="Monero (XMR)">Monero (XMR)</option>
                 <option {{ $withdrawal->requisites == 'Bitcoin (BTC)' ? 'selected' : '' }} value="Bitcoin (BTC)">Bitcoin (BTC)</option>
                 <option {{ $withdrawal->requisites == 'Ethereum (ETH)' ? 'selected' : '' }} value="Ethereum (ETH)">Ethereum (ETH)</option>
-                
+
             </select>
         </div>
 
@@ -42,6 +42,7 @@
         <label for="status">Status</label>
         <select  name="status" class="form-control">
             <option {{ $withdrawal->status == 'В обработке' ? 'selected' : '' }} value="В обработке">В обработке</option>
+            <option {{ $withdrawal->status == 'Отменено' ? 'selected' : '' }} value="Отменено">Отменено</option>
             <option {{ $withdrawal->status == 'Успешно' ? 'selected' : '' }} value="Успешно">Успешно</option>
         </select>
     </div>
