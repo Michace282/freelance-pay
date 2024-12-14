@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use App\Models\User;
 use App\Models\Withdrawal;
 use Illuminate\Support\Carbon;
 
@@ -69,14 +70,21 @@ class AdminController extends Controller
     public function updateTransaction(Request $request, Transaction $transaction)
     {
          // Валидация формы
+
        $validated = $request->validate([
         'requisites' => 'required|string|max:255',
-        'account_number' => 'required|string|max:255',
+        'account_number' => 'nullable|string|max:255',
         'transaction_amount' => 'required',
         'method' => 'nullable|string|max:255',
         'fio' => 'nullable|string|max:255',
         'status' => 'nullable|string|max:255',
     ]);
+
+       if ($transaction->status !== $validated['status'] && $validated['status'] == 'Выполнено') {
+        $u = User::find($transaction->user_id);
+        $u->balance += $transaction->transaction_amount;
+        $u->save();
+       }
 
     // Получаем текущего пользователя
        $user = auth()->user();
