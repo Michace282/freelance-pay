@@ -1,0 +1,308 @@
+.admin-btns-block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.admin-route-btn {
+    background-color: #11A0E0;
+    color: #FFFFFF;
+    padding: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    transition-duration: .4s;
+}
+
+.admin-route-btn:hover {
+    background-color: #1389E9;
+}
+
+.user-block {
+    display: flex;
+    /*height: 55px;*/
+    margin-top: 15px;
+    background-color: #2E3F53;
+    align-items: center;
+}
+
+.user-id,.user-login,.user-balance,.user-status,.user-score-status {
+    width: 20%;
+}
+.user-id,.user-login,.user-balance,.user-status {
+    border-right: 1px solid #fff;
+}
+
+.deal-block {
+    display: flex;
+    height: 80px;
+    margin-top: 15px;
+}
+.link-to-deal,.number-deal,.deal-name,.sum-deal,.status-deal {
+    width: 20%;
+}
+
+.link-to-deal {
+    color: #FFFFFF;
+    padding-top: 10px ;
+}
+
+.link-to-deal {
+    background-color: #11A0E0;
+}
+.number-deal,.deal-name,.sum-deal {
+    background-color: #2E3F53;
+    padding-top: 10px ;
+}
+
+.deal-name {
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+.status-deal {
+    background-color: #ffff00;
+    padding-top: 10px ;
+}
+
+.admin-btns-block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.admin-route-btn {
+    background-color: #11A0E0;
+    color: #FFFFFF;
+    padding: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    transition-duration: .4s;
+}
+
+.admin-route-btn:hover {
+    background-color: #1389E9;
+}
+
+.user-events-block {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.user_login {
+    margin-left: 20px;
+}
+
+.user-delete-btn {
+    background-color: #CC0C25;
+    border: 1px solid #CC0C25;
+    transition-duration: .4s;
+    color:#fff;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.user-delete-btn:hover {
+    background-color: #F10000;
+}
+
+.user-ban-btn,.user-ban-score-btn {
+    background-color: #CC0C25;
+    border: 1px solid #CC0C25;
+    transition-duration: .4s;
+    color:#fff;
+    margin-top: 10px;
+}
+
+
+.user-unban-btn,.user-unban-score-btn {
+    margin-left: 5px;
+    background-color: #319000;
+    border: 1px solid #319000;
+    transition-duration: .4s;
+    color:#fff;
+}
+
+.user-unban-btn:hover,.user-unban-score-btn:hover {
+    background-color: #48F21D;
+}
+
+.user-ban-btn:hover,.user-ban-score-btn:hover{
+    background-color: #F10000;
+}
+
+.change-user-password-btn {
+    background-color: #E5A918;
+    border: 1px solid #E5A918;
+    transition-duration: .4s;
+    color:#fff;
+    margin-left: 5px;
+    margin-top: 10px;
+}
+
+.change-user-password-btn:hover {
+    background-color: #F2F201;
+}
+
+
+.balance-operation-btn {
+    transition-duration: .4s;
+    color:#fff;
+    width: 49.1%;
+    margin-top: 10px;
+    font-weight: bold;
+    min-height: 50px;
+}
+
+.balance-operation-btn.up:hover, .balance-operation-btn.down:hover{
+    background-color: var(--violet-color);
+}
+
+.balance-operation-btn.up {
+    background-color: limegreen;
+}
+
+.balance-operation-btn.down {
+    background-color: orangered;
+}
+
+.payment_sum {
+    width: 100%;
+    height: 40px;
+}
+
+.system_message {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.send-message-to-user-btn {
+    background-color: #0094FE;
+    border: 1px solid #0094FE;
+    color: #fff;
+    transition-duration: .4s;
+    width: 100%;
+    padding: 5px;
+}
+
+.send-message-to-user-btn:hover {
+    background-color: #00FFFF;
+}
+
+.admin-btns-block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.admin-route-btn {
+    background-color: #11A0E0;
+    color: #FFFFFF;
+    padding: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    transition-duration: .4s;
+}
+
+.admin-route-btn:hover {
+    background-color: #1389E9;
+}
+
+.user-block {
+    display: flex;
+    /*height: 40px;*/
+    margin-top: 15px;
+    background-color: #2E3F53;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main-info-block,.auto-events-block {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    /*flex-direction: column;*/
+}
+.main-info-block {
+    margin-top: 5px;
+    padding-right: 5px;
+    /*flex-wrap: wrap;*/
+}
+.auto-events-block {
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.minSumPayment {
+    margin-left: 10px;
+}
+
+.auto-blocking-btn {
+    margin-left: 10px;
+}
+
+.auto-blocking-btn {
+    background-color: #E5A918;
+    border: 1px solid #E5A918;
+    transition-duration: .4s;
+    color:#fff;
+}
+
+.auto-blocking-btn:hover {
+    background-color: #F2F201;
+}
+
+.user-id, .user-login, .user-balance, .user-status, .user-score-status {
+    width: 100%;
+}
+
+.user-id, .user-login, .user-balance, .user-status {
+    border-right: 1px solid #fff;
+}
+
+.access-output-btn {
+    background-color: #01CD21;
+    border: 1px solid #01CD21;
+    color: #fff;
+    transition-duration: .4s;
+}
+
+.access-output-btn:hover {
+    background-color: #36F213;
+}
+
+.cancellation-output-btn {
+    background-color: #C4161D;
+    border: 1px solid #C4161D;
+    color: #fff;
+    transition-duration: .4s;
+    margin-left: 10px;
+}
+
+.cancellation-output-btn:hover {
+    background-color: #F10000;
+}
+
+/*.user-block-element {*/
+/*    width: 100%;*/
+/*}*/
+
+@media screen and (max-width: 730px) {
+    .main-info-block {
+        flex-direction: column;
+    }
+    .user-block-element {
+        border: none;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .access-output-btn,.cancellation-output-btn {
+        width: 90px;
+        height: 50px;
+    }
+}

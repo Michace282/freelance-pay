@@ -1,0 +1,56 @@
+body {
+    background: #f1f1f1;
+}
+
+.fc-main {
+    color: #0B0B0B;
+}
+.fc-secondary {
+    color: #525252;
+}
+.fc-white {
+    color: #F2F2F2;
+}
+.fc-akcent {
+    color: #088395;
+}
+.fc-g {
+    color:#36AE7C;
+}
+.fc-alert {
+    color: #EB5353;
+}
+.fc-lg {
+    color: #05BFDB;
+}
+.fc-sog {
+    font-weight: 700;
+}
+.bc-main {
+    background: #F1F1F1;
+}
+.bc-secondary {
+    background: #088395;
+}
+.bc-akcent {
+    background: linear-gradient(180.43deg, #0A4D68 18.79%, #052E3F 99.63%);
+}
+.bc-btn-lg {
+    background: #05BFDB;
+}
+.bc-btn-dg {
+    background: rgba(10, 77, 104, 0.7);
+}
+.bc-btn-g {
+    background: #36AE7C;
+}
+.bc-red {
+    background: #EB5353;
+}
+.bc-block {
+    background: #EFEFEF;
+}
+.bc-chat {
+    background: #EFEFEF;
+}
+

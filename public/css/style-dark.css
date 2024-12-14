@@ -1,0 +1,94 @@
+
+body {
+    background: #1E1E1E;
+}
+
+.fc-main {
+    color: #F1F1F1;
+}
+.fc-secondary {
+    color: rgba(236, 236, 236, 0.7);
+}
+.fc-white {
+    color: #F2F2F2;
+}
+.fc-akcent {
+    color: #05BFDB;
+}
+.fc-alert {
+    color: #EB5353;
+}
+.fc-g {
+    color:#36AE7C;
+}
+.fc-lg {
+    color: #05BFDB;
+}
+.fc-sog {
+    color: #F1F1F1;
+    font-weight: 700;
+}
+.bc-main {
+    background: #1E1E1E;
+}
+.bc-secondary {
+    background: #088395;
+}
+.bc-akcent {
+    background: linear-gradient(180.43deg, #0A4D68 18.79%, #052E3F 99.63%);
+}
+.bc-btn-lg {
+    background: #05BFDB;
+}
+.bc-btn-dg {
+    background: rgba(10, 77, 104, 0.7);
+}
+.bc-btn-g {
+    background: #36AE7C;
+}
+.bc-red {
+    background: #EB5353;
+}
+.bc-block {
+    background: #525252;
+}
+.bc-chat {
+    background: #323232;
+}
+.bc-menu-mobile {
+    background: #3C3C3C;
+}
+::placeholder {
+    color: rgba(236, 236, 236, 0.7);
+}
+input, textarea {
+    color: #F1F1F1;
+}
+.payments__buttons .form__btn{
+    background: #35C689;
+}
+.newDeal__payment:not(:last-child) {
+    border-bottom: 1px solid #05BFDB;
+}
+.chatBlock__main__message, .chatBlock__message {
+    border: 1px solid #05BFDB;
+}
+.modal__content {
+    background: #3C3C3C;
+}
+.modal__content input {
+    background: #525252;
+}
+.iconClose {
+    color: #088395;
+}
+.mainContent__btns button {
+    background: #05BFDB;
+}
+
+@media screen and (max-width: 1200px){
+    .headerNav__menu {
+        background: #3C3C3C;
+    }
+}
+
