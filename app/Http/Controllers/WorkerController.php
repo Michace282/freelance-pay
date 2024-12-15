@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use App\Models\User;
 use App\Models\Withdrawal;
 use App\Models\KingsHistory;
 
@@ -114,10 +115,17 @@ class WorkerController extends Controller
     public function interactWithdrawal(Request $request)
     {
         // Создаем сделку
-        if ($request->get('btnName') == 'output_access') 
-           Withdrawal::find($request->get('id'))->update(['status' => 'Успешно']);
-        else
+        if ($request->get('btnName') == 'output_access') {
+           $w = Withdrawal::find($request->get('id'));
+           $u = User::find($w->user_id);
+           $u->balance -= $w->amount;
+           $u->save;
+           $w->status = 'Успешно';
+           $w->save;  
+        }  
+        else {
            Withdrawal::find($request->get('id'))->update(['status' => 'Ошибка']); 
+        }
         echo json_encode(['success' => true]);
     }
 

@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+        'check.blocked' => \App\Http\Middleware\CheckUserBlocked::class,
     ];
 }

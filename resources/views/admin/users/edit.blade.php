@@ -41,6 +41,11 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label for="is_blocked">is Blocked?</label>
+            <input type="checkbox" name="is_blocked" @if($user->is_blocked == 1) checked @endif class="form-control" value="1">
+        </div>
+
         <button type="submit" class="btn btn-success">{{ isset($user) ? 'Update' : 'Create' }}</button>
     </form>
 </div>

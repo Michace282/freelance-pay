@@ -35,8 +35,10 @@ Route::get('/performers', [PagesController::class, 'performers'])->name('perform
 Route::get('/clients', [PagesController::class, 'clients'])->name('clients');
 Route::get('/rules', [PagesController::class, 'rules'])->name('rules');
 
+Route::get('/messages', [UserController::class, 'messages'])->name('messages');
+
 // Store a newly created deal
-Route::prefix('/')->middleware(['auth'])->group(function () {
+Route::prefix('/')->middleware(['auth', 'check.blocked'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 Route::get('/account', [TransactionController::class, 'account'])->name('account');
@@ -46,7 +48,7 @@ Route::post('/withdrawal-create', [TransactionController::class, 'storeWithdrawa
 Route::post('/transfer', [TransactionController::class, 'transfer'])->name('transaction.transfer');
 
 Route::post('/transaction/{transactionId}/accept', [TransactionController::class, 'acceptTransaction'])->middleware('auth')->name('transaction.accept');
-Route::get('/messages', [UserController::class, 'messages'])->name('messages');
+
 Route::get('/settings', [UserController::class, 'settings'])->name('settings');
 
 Route::prefix('deals')->group(function () {
@@ -63,16 +65,18 @@ Route::prefix('deals')->group(function () {
     Route::get('{id}', [DealController::class, 'show'])->name('deals.show');
 });
 
-    // Роут для подтверждения участия в сделке
+// Роут для подтверждения участия в сделке
 Route::post('/deal/{dealId}/accept', [DealController::class, 'acceptDeal'])->middleware('auth')->name('deal.accept');
-
 // Роут для подтверждения оплаты сделки
 Route::post('/deal/{dealId}/confirm-payment', [DealController::class, 'confirmPayment'])->middleware('auth')->name('deal.confirmPayment');
-
 // Роут для подтверждения оплаты покупателем/заказчиком
 Route::post('/deal/{dealId}/confirm-payment-buyer', [DealController::class, 'confirmPaymentFromBuyer'])->middleware('auth')->name('deal.confirmPaymentBuyer');
-// Роут для арбитража
+// Роуты для арбитража
 Route::post('/deal/{dealId}/arbit-deal', [DealController::class, 'arbitDeal'])->middleware('auth')->name('deal.arbitDeal');
+Route::post('/deal/{dealId}/cancel-arbit-deal', [DealController::class, 'cancelArbitDeal'])->middleware('auth')->name('deal.cancelArbitDeal');
+Route::post('/deal/{dealId}/finish-arbit-deal-by-executor', [DealController::class, 'finishArbitDealByExecutor'])->middleware('auth')->name('deal.finishArbitDealByExecutor');
+Route::post('/deal/{dealId}/finish-arbit-deal-by-client', [DealController::class, 'finishArbitDealByClient'])->middleware('auth')->name('deal.finishArbitDealByClient');
+
 Route::prefix('chat')->group(function () {
     Route::get('{dealId}', [ChatController::class, 'getMessages'])->name('chat.getMessages');
     Route::post('send', [ChatController::class, 'sendMessage'])->name('chat.sendMessage');

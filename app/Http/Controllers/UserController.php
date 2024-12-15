@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\SystemMessage;
 use Spatie\Permission\Models\Role;
 use Illuminate\Validation\Rules;
 
@@ -67,38 +68,56 @@ class UserController extends Controller
             'login' => "required|unique:users,login,{$user->id}",
             'email' => "required|email|unique:users,email,{$user->id}",
             'roles' => 'required|array',
+            'is_blocked'  => 'nullable',
         ]);
 
-        $user->update([
-            'login' => $request->login,
-            'email' => $request->email,
-        ]);
+        $is_blocked = $request->has('is_blocked') ? 1 : 0;
 
-        if ($request->filled('password')) {
-            $user->update(['password' => Hash::make($request->password)]);
-        }
+        if ($user->is_blocked !== $is_blocked) {
+           if ($is_blocked == 1) {
+               SystemMessage::create([
+                'user_id' => $user->id,
+                'message' => 'Ваш акаунт заблокирован за нарушения правил.',
+            ]);
+           } else {
+               SystemMessage::create([
+                'user_id' => $user->id,
+                'message' => 'Ваш акаунт разблокирован, не нарушайте правила.',
+            ]);
+           }
+       }
 
-        $user->syncRoles($request->roles);
+       $user->update([
+        'login' => $request->login,
+        'email' => $request->email,
+        'is_blocked' => $is_blocked 
+    ]);
 
-        return redirect()->route('admin.users.index')->with('success', 'Пользователь успешно обновлен.');
+       if ($request->filled('password')) {
+        $user->update(['password' => Hash::make($request->password)]);
     }
 
-    public function destroy(User $user)
-    {
-        $user->delete();
-        return redirect()->route('admin.users.index')->with('success', 'Пользователь успешно удалён.');
-    }
+    $user->syncRoles($request->roles);
 
+    return redirect()->route('admin.users.index')->with('success', 'Пользователь успешно обновлен.');
+}
 
-    public function messages()
-    {
-        return view('messages');
-    }
+public function destroy(User $user)
+{
+    $user->delete();
+    return redirect()->route('admin.users.index')->with('success', 'Пользователь успешно удалён.');
+}
 
-    public function settings(Request $request)
-    {
-        return view('settings', [
-            'user' => $request->user(),
-        ]);
-    }
+public function messages()
+{
+    $messages = SystemMessage::where('user_id', auth()->user()->id)->orderBy('created_at','DESC')->paginate(15);
+    return view('messages',compact('messages'));
+}
+
+public function settings(Request $request)
+{
+    return view('settings', [
+        'user' => $request->user(),
+    ]);
+}
 }

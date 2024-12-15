@@ -36,7 +36,16 @@ public function payments()
 
 public function store(Request $request)
 {
-        // Валидация формы
+    
+    // Получаем текущего пользователя
+    $user = auth()->user();
+
+
+    if ($request->has('transactionId') && $request->filled('transactionId')) {
+$transaction = Transaction::find($request->get('transactionId'))->update(['status'=>'Проверка оплаты']);
+echo json_encode(['success' => true]);
+    } else {
+            // Валидация формы
     $validated = $request->validate([
         'requisites' => 'required|string|max:255',
         'transaction_amount' => 'required',
@@ -44,21 +53,20 @@ public function store(Request $request)
         'fio' => 'nullable|string|max:255',
     ]);
 
-    // Получаем текущего пользователя
-    $user = auth()->user();
-
-    // Создаем сделку
+       // Создаем сделку
     $transaction = Transaction::create([
         'requisites' => $validated['requisites'],
         'method' => $validated['method'],
         'fio' => $validated['fio'],
         'user_id' => $user->id,
-        'status' => 'Проверка оплаты',
+        'status' => 'В обработке',
         'transaction_amount' => $validated['transaction_amount'],
     ]);
+    echo json_encode(['success' => true, 'id' => $transaction->id]);
+    }
 
     // Redirect to the deals index page with a success message
-    return redirect()->route('account')->with('success', 'Транзакция успешно создана!');
+    //return redirect()->route('account')->with('success', 'Транзакция успешно создана!');
 }
 
 public function storeWithdrawal(Request $request)

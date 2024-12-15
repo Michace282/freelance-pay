@@ -26,6 +26,7 @@ class User extends Authenticatable
         'avatar',
         'specialization',
         'balance',
+        'is_blocked',
     ];
 
     /**

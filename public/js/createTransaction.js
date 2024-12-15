@@ -18,6 +18,8 @@ const input2 = document.getElementById('sum');
 const input3 = document.getElementById('cardnumber');
 const button = document.querySelector('.create__payment');
 
+checkInputs()
+
 // Функция для проверки заполненности input'ов
 function checkInputs() {
     const value1 = input1.value;
@@ -72,45 +74,20 @@ function createTransaction() {
 
 
     setTimeout(() => {
-    
+
         $('.btn.trigger-button.continue').find('p').text('Да');
         $('.btn.trigger-button.continue').prop('disabled', false);
         $('.loading-img').css('display', 'none');
 
- 
+
         const currentModal = document.querySelector('.Modal[data-modal="3"]');
         const paymentModal = document.querySelector('.Modal[data-modal="5"]');
 
         if (currentModal) currentModal.style.display = 'none';
         if (paymentModal) paymentModal.style.display = 'flex';
 
-    
-        const timerElement = paymentModal.querySelector('.modal__text strong');
-        let timeLeft = 1200; 
-        const timerInterval = setInterval(() => {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            timerElement.textContent = `${minutes.toString().padStart(2, '0')} минут ${seconds.toString().padStart(2, '0')} секунд`;
-            timeLeft--;
-            if (timeLeft < 0) {
-                clearInterval(timerInterval);
-                timerElement.textContent = '00:00';
-            }
-        }, 1000);
-    }, 1000); 
-}
 
-
-function paid() {
-
-    const currentModal = document.querySelector('.Modal[data-modal="5"]');
-
-    const paymentModal = document.querySelector('.Modal[data-modal="6"]');
-
-    if (currentModal) currentModal.style.display = 'none';
-    if (paymentModal) paymentModal.style.display = 'flex';
-
-    const form = $('.refill form'); // Укажите ID формы
+         const form = $('.refill form'); // Укажите ID формы
 const url = form.attr('action'); // URL действия формы
 const data = form.serialize(); // Собираем данные формы
 
@@ -121,6 +98,50 @@ $.ajax({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Передаем CSRF-токен
     },
     data: data, // Данные из формы
+    success: function (response) {
+        response = JSON.parse(response)
+        $('.modal__payment .paid').attr('onclick',`paid(${response.id})`)
+        console.log('Успех:', response);
+        // Выполняем действия при успешном запросе
+    },
+    error: function (error) {
+        console.error('Ошибка:', error);
+    }
+});
+
+
+const timerElement = paymentModal.querySelector('.modal__text strong');
+let timeLeft = 1200; 
+const timerInterval = setInterval(() => {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    timerElement.textContent = `${minutes.toString().padStart(2, '0')} минут ${seconds.toString().padStart(2, '0')} секунд`;
+    timeLeft--;
+    if (timeLeft < 0) {
+        clearInterval(timerInterval);
+        timerElement.textContent = '00:00';
+    }
+}, 1000);
+}, 1000); 
+}
+
+
+function paid($transactionId = false) {
+
+    const currentModal = document.querySelector('.Modal[data-modal="5"]');
+
+    const paymentModal = document.querySelector('.Modal[data-modal="6"]');
+
+    if (currentModal) currentModal.style.display = 'none';
+    if (paymentModal) paymentModal.style.display = 'flex';
+
+$.ajax({
+    url: '/',
+    method: 'POST',
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Передаем CSRF-токен
+    },
+    data: { transactionId: $transactionId}, // Данные из формы
     success: function (response) {
         console.log('Успех:', response);
         // Выполняем действия при успешном запросе

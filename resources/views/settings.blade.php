@@ -63,6 +63,13 @@
             </a>
         </div>
         @endif
+         @if (auth()->user()->hasRole('admin'))
+        <div class="form__settings d-flex flex-column align-items-center" >
+            <a href="{{ route('dashboard') }}">
+                <button class="form__btn border-left fc-white bc-akcent align-self-center">Админ панель</button>
+            </a>
+        </div>
+        @endif
     </div>
 </div>
 </section>

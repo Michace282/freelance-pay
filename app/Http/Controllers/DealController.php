@@ -198,20 +198,77 @@ public function arbitDeal($dealId)
 {
     $deal = Deal::findOrFail($dealId);
 
-    if ($deal->client_id == auth()->id() && $deal->status == 'Оплачена') {
+    if ($deal->status == 'Оплачена') {
         // Измените статус на завершенную сделку
         $deal->status = 'Арбитраж';
         $deal->save();
 
         // Система сообщает о завершении сделки
-        $this->sendSystemMessage($dealId, "Сделку подали в арбитраж");
+        $this->sendSystemMessage($dealId, "Был вызван арбитраж. Опишите пожалуйста вашу проблему и сотрудники сервиса вам помогут");
+
+        return Redirect::route('deals.show', $dealId);
+    }
+
+    return response()->json(['error' => 'Оплата уже была подтверждена или вы не можете подтвердить эту оплату.'], 403);
+}
+
+public function cancelArbitDeal($dealId)
+{
+    $deal = Deal::findOrFail($dealId);
+
+    // Проверьте, является ли текущий пользователь заказчиком
+    if ($deal->status == 'Арбитраж') {
+        // Обновляем статус сделки на оплачено
+        $deal->status = 'Оплачена';
+        $deal->save();
+
+        // Система уведомляет обо всей оплате
+        $this->sendSystemMessage($dealId, 'Арбитраж отменен.');
+
+        return Redirect::route('deals.show', $dealId);
+    }
+
+    return response()->json(['error' => 'Только заказчик может подтвердить оплату.'], 403);
+}
+
+public function finishArbitDealByExecutor($dealId)
+{
+    $deal = Deal::findOrFail($dealId);
+
+    if ($deal->status == 'Арбитраж') {
+        // Измените статус на завершенную сделку
+        $deal->status = 'Завершена';
+        $deal->save();
+
+        // Система сообщает о завершении сделки
+        $this->sendSystemMessage($dealId, "Сделка завершена в пользу исполнителя");
 
         // Перевод средств на счет исполнителя
         $executor = User::find($deal->executor_id);
-        $executor->balance -= $deal->amount; // Перевод средств на счет
+        $executor->balance += $deal->amount; // Перевод средств на счет
         $executor->save();
 
+        return Redirect::route('deals.show', $dealId);
+    }
+
+    return response()->json(['error' => 'Оплата уже была подтверждена или вы не можете подтвердить эту оплату.'], 403);
+}
+
+
+public function finishArbitDealByClient($dealId)
+{
+    $deal = Deal::findOrFail($dealId);
+
+    if ($deal->status == 'Арбитраж') {
+        // Измените статус на завершенную сделку
+        $deal->status = 'Завершена';
+        $deal->save();
+
+        // Система сообщает о завершении сделки
+        $this->sendSystemMessage($dealId, "Сделка завершена в пользу заказчика");
+
         // Перевод средств на счет исполнителя
+                // Перевод средств на счет исполнителя
         $сlient = User::find($deal->client_id);
         $сlient->balance += $deal->amount; // Перевод средств на счет
         $сlient->save();
@@ -221,4 +278,5 @@ public function arbitDeal($dealId)
 
     return response()->json(['error' => 'Оплата уже была подтверждена или вы не можете подтвердить эту оплату.'], 403);
 }
+
 }

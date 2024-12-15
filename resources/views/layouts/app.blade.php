@@ -326,7 +326,7 @@
     </div>
 </div>
 
-<script src="{{ asset('js/createTransaction.js') }}" charset="UTF-8"></script>
+<script src="{{ asset('js/createTransaction.js') }}?t={{time()}}" charset="UTF-8"></script>
     ﻿<!-- Begin of Chaport Live Chat code -->
 <script type="text/javascript">
 (function(w,d,v3){
