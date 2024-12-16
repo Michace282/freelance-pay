@@ -49,7 +49,7 @@
     @endif
 
 
-    @if ($deal->status == 'Ожидает оплаты')
+    @if ($deal->status == 'Ожидание оплаты')
     <div class="fc-lg status">
       <!-- Ожидается оплата -->    
       <div class="row justify-content-center">
@@ -205,11 +205,11 @@
                         <span class = "col-6 col-xl-7">{{ $deal->amount }}₽</span>
                         <div class = "commission__info d-flex fc-secondary justify-content-between">
                             <span>Комиссия сделки</span>
-                            <span>200₽</span>
+                            <span>{{ $deal->comission }}₽</span>
                         </div>
                         <div class = "commision__info d-flex fc-secondary justify-content-between">
                             <span>Итоговая сумма сделки</span>
-                            <span>{{ $deal->amount + 200 }}₽</span>
+                            <span>{{ $deal->amount + $deal->comission }}₽</span>
                         </div>
                     </div>
                 </div>
@@ -219,7 +219,7 @@
             <div class="payments__buttons text-center flex-wrap justify-content-center">
 
 
-                @if ($deal->status === 'Ожидание начала работы' && auth()->id() === $deal->executor_id)
+                @if ($deal->status === 'На согласовании' && auth()->id() === $deal->executor_id)
                 <!-- Кнопка для принятия участия -->
                 <div class="row justify-content-center"> <button 
                     class="form__btn bc-secondary fc-white border-right"
@@ -239,13 +239,13 @@
                 </button></div>
                 @endif
 
-                @if ($deal->status === 'В работе' && auth()->id() === $deal->client_id)
+                @if ($deal->status === 'Оплачена' && auth()->id() === $deal->client_id)
                 <!-- Кнопка для завершения сделки -->
                 <div class="row justify-content-center"> <button 
                     class="form__btn bc-secondary fc-white border-right"
                     onclick="handleAction('{{ route('deal.confirmPaymentBuyer', ['dealId' => $deal->id]) }}')"
                     >
-                    Завершить сделку
+                    Подтвердить оплату
                 </button></div>
                 @endif
 
@@ -274,7 +274,7 @@
                             <div class="col-1"></div>
                             <div class="col-10">
                                 <div class="chatBlock__head__title text-center">
-                                    <span>Чат с пользователем {{ ($deal->role == 'Исполнитель') ? $deal->executor->login : $deal->client->login }}</span>
+                                    <span>Чат с пользователем {{ $deal->client->id == auth()->user()->id ? $deal->executor->login : $deal->client->login }}</span>
                                 </div>
                             </div>
                             <div class="chatBlock__head__settings d-flex justify-content-end col-1">
@@ -375,7 +375,7 @@ setTimeout(() => {
                     <div id="id_chat_message">
                     <div class="chatBlock__main__reciever d-flex flex-column justify-content-end col-12">
                     <div class="chatBlock__main__reciever__name">
-                    <span>${message.message_type === 'system' ? 'Система' : (message.message_type === 'admin' ? 'Администрация' : message.sender)}</span>
+                    <span>${message.message_type === 'system' ? 'Система' : (message.message_type === 'admin' ? 'Администратор' : message.sender)}</span>
                     </div>
                     <div class="chatBlock__main__message bc-block border-left">
                     <span>${message.message}</span>

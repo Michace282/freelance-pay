@@ -4,7 +4,7 @@
 <section class="head">
     <div class="container-fluid">
         <div class="row">
-            <div class="head__title d-flex justify-content-center justify-content-xl-between align-items-center flex-wrap col-12 col-md-2 col-xl-7">
+            <div class="head__title d-flex justify-content-center justify-content-xl-between align-items-center flex-wrap col-12">
                 @if (!auth()->user()->is_blocked)
                 <a href="{{ route('deals.create') }}" class="d-flex order-2 order-xl-1">
                     <div class="form__btn border-right bc-akcent fc-white text-center d-block fc-white">Создать сделку</div>

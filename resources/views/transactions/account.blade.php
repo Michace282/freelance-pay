@@ -168,6 +168,58 @@
                 </div>
                 @endif
             </div>
+
+            @foreach ($withdrawals as $withdrawal)                                                                                                      
+                  <div class="accountHistory__table bc-block col-12 col-xl-10">
+                    <div class="accountHistory__table__row col-12">
+                        <div class="tableRow d-flex col-12">
+                            <div class = "text-center col-1">
+                                <div class="colTitle">ID</div>
+                            </div>
+                            <div class = "text-center col-2 col-xl-3">
+                                <div class="colTitle">Дата</div>
+                            </div>
+                            <div class = "text-center col-2">
+                                <div class="colTitle">Реквизиты</div>
+                            </div>
+                            <div class = "text-center col-3">
+                                <div class="colTitle">Номер счета</div>
+                            </div>
+                            <div class = "text-center col-2 col-xl-1">
+                                <div class="colTitle">Сумма</div>
+                            </div>
+                            <div class = "text-center col-2">
+                                <div class="colTitle">Статус</div>
+                            </div>
+                        </div>
+                        <div class="tableRow d-flex table__border fc-main col-12">
+                            <div class = "colContent text-center col-1">
+                                <div>{{ $withdrawal->id }}</div>
+                            </div>
+                            <div class = "colContent text-center col-2 col-xl-3">
+                                <div>{{ $withdrawal->created_at }}</div>
+                            </div>
+                            <div class = "colContent text-center col-2">
+                                <div>
+                                   {{ $withdrawal->requisites }}
+                               </div>
+                           </div>
+                           <div class = "colContent text-center col-3">
+                            <div>{{ $withdrawal->account_number }}</div>
+                        </div>
+                        <div class = "colContent text-center col-2 col-xl-1">
+                            <div>{{ $withdrawal->amount }}₽</div>
+                        </div>
+                        <div class = "colContent text-center col-2">
+                            <div class="fc-g">
+                                {{ $withdrawal->status }}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
         </div>
         <div class="tab-content col-12" data-tab="3">
             @if (!auth()->user()->is_blocked)

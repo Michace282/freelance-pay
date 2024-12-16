@@ -36,8 +36,8 @@
                     <div class="form__field fc-main d-flex flex-column flex-xl-row align-items-xl-center">
                         <label>Ваша роль</label>
                         <select class="fc-main bc-block" name="role" required onchange="changeRoleText(this)">
-                            <option value="Исполнитель" {{ old('role') == 'Исполнитель' ? 'selected' : '' }}>Исполнитель</option>
                             <option value="Заказчик" {{ old('role') == 'Заказчик' ? 'selected' : '' }}>Заказчик</option>
+                            <option value="Исполнитель" {{ old('role') == 'Исполнитель' ? 'selected' : '' }}>Исполнитель</option>
                         </select>
                         @error('role')
                             <span class="text-danger">{{ $message }}</span>
@@ -72,6 +72,7 @@
                         <div class="d-flex col-12">
                             <span class="col-9">Комиссия сделки</span>
                             <span class="col-3" id="taxsummm">0₽</span>
+                             <input id="comission" type="hidden" name="comission"  required value="{{ old('comission') }}">
                         </div>
                         <div class="d-flex justify-content-between col-12">
                             <span class="col-9">Итоговая сумма сделки</span>
@@ -101,6 +102,7 @@
         let sumInput = document.getElementsByName("sum")[0];
         // document.getElementById('summm').innerHTML = Number(sumInput.value) + "₽";
         document.getElementById('taxsummm').innerHTML = ((Number(sumInput.value) / 100) * 5).toFixed(2) + "₽";
+        document.getElementById('comission').value = ((Number(sumInput.value) / 100) * 5).toFixed(2);
         document.getElementById('totalm').innerHTML = ((Number(sumInput.value) / 100) * 5) + Number(sumInput.value) + "₽";
     }
 </script>

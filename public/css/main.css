@@ -2153,3 +2153,14 @@ td div {
 }
 
 
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* Шапка, основной контент, footer */
+}
+
+

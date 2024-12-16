@@ -16,7 +16,7 @@ class DealController extends Controller
     $user = auth()->user();
 
     // Проверяем роль пользователя с помощью Spatie
-    if ($user->hasRole('admin') || $user->hasRole('moderator')) {
+    if ($user->hasRole('admin')) {
         // Если пользователь админ или модератор, показываем все сделки
         $deals = Deal::paginate(10); // Пагинация по 10 записей на странице
     } else {
@@ -44,6 +44,7 @@ public function store(Request $request)
         'second_user' => 'required|string|exists:users,login', // Логин второго пользователя
         'deal_information' => 'nullable|string',
         'sum' => 'required|numeric',
+        'comission' => 'required|numeric',
         'days_count' => 'required|numeric', // Количество дней на выполнение
     ]);
 
@@ -62,12 +63,17 @@ public function store(Request $request)
     // Рассчитываем конечную дату с учетом days_count
     $deal_date = Carbon::now()->addDays($validated['days_count']);
 
+    if (auth()->user()->balance <= ($validated['sum'] + $validated['comission'])) {
+         return redirect()->route('deals.create')->with('error', 'Сделка не может создана сделку на более чем на '.auth()->user()->balance.'!');
+    }
+
     // Создаем сделку
     $deal = Deal::create([
         'deal_title' => $validated['deal_title'],
         'client_id' => $client->id,
         'executor_id' => $executor->id,
         'amount' => $validated['sum'],
+        'comission' => $validated['comission'],
         'description' => $validated['deal_information'],
         'status' => 'На согласовании',  // Пример значения, можно изменить
         'role' => $validated['role'],
@@ -89,8 +95,9 @@ public function show($id)
     // Find the deal by ID
     $deal = Deal::findOrFail($id);
 
-    if (auth()->user()->is_blocked) {
-         redirect()->route('deals.index');
+    
+    if (auth()->user()->is_blocked == 1 && $deal->status !== 'Завершено') {
+         return redirect()->route('deals.index');
     }
 
     // Return the view and pass the deal data
@@ -166,7 +173,7 @@ public function confirmPayment($dealId)
 
         // Перевод средств на счет исполнителя
         $сlient = User::find($deal->client_id);
-        $сlient->balance -= $deal->amount; // Перевод средств на счет
+        $сlient->balance -= ($deal->amount + $deal->comission); // Перевод средств на счет
         $сlient->save();
 
         return Redirect::route('deals.show', $dealId);
@@ -175,11 +182,13 @@ public function confirmPayment($dealId)
     return response()->json(['error' => 'Только заказчик может подтвердить оплату.'], 403);
 }
 
+
+
 public function confirmPaymentFromBuyer($dealId)
 {
     $deal = Deal::findOrFail($dealId);
 
-    if ($deal->client_id == auth()->id() && $deal->status == 'В работе') {
+    if ($deal->client_id == auth()->id() && $deal->status == 'Оплачена') {
         // Измените статус на завершенную сделку
         $deal->status = 'Завершена';
         $deal->save();

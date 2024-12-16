@@ -19,114 +19,124 @@ class WorkerController extends Controller
 
     public function deposits()
     {
-        $transactions = Transaction::where('status','Выполнено')->orderBy('transaction_date','DESC')->paginate(10);
+        if ($user->hasRole('admin')) {
+            $transactions = Transaction::where('status','Выполнено')->orderBy('transaction_date','DESC')->paginate(10);
+        } else {
+            $transactions = Transaction::where('status','Выполнено')->where('user_id',auth()->user()->id)->orderBy('transaction_date','DESC')->paginate(10);
+        }
+
         return view('worker.deposits', compact('transactions'));
+        
     }
 
     public function withdrawal()
     {
+       if ($user->hasRole('admin')) {
         $withdrawals = Withdrawal::orderBy('created_at','DESC')->paginate(10);
-        return view('worker.withdrawal', compact('withdrawals'));
+    } else {
+        $withdrawals = Withdrawal::where('user_id',auth()->user()->id)->orderBy('created_at','DESC')->paginate(10);
     }
+    return view('worker.withdrawal', compact('withdrawals'));
+}
 
-    public function upBalance(Request $request)
-    {
+public function upBalance(Request $request)
+{
     // Получаем текущего пользователя
-        $user = auth()->user();
+    $user = auth()->user();
 
         // Создаем сделку
-        KingsHistory::create([
-            'user_id' => $user->id,
-            'status' => 'Выполнено',
-            'amount' => $request->get('sum'),
-        ]);
+    KingsHistory::create([
+        'user_id' => $user->id,
+        'status' => 'Выполнено',
+        'amount' => $request->get('sum'),
+    ]);
 
-        $user->update(['balance' => $user->balance + $request->get('sum')]);
-        echo json_encode(['success' => true]);
-    }
+    $user->update(['balance' => $user->balance + $request->get('sum')]);
+    echo json_encode(['success' => true]);
+}
 
-    public function downBalance(Request $request)
-    {
+public function downBalance(Request $request)
+{
     // Получаем текущего пользователя
-        $user = auth()->user();
+    $user = auth()->user();
 
-        $user->update(['balance' => $user->balance - $request->get('sum')]);
-        echo json_encode(['success' => true]);
-    }
+    $user->update(['balance' => $user->balance - $request->get('sum')]);
+    echo json_encode(['success' => true]);
+}
 
-    public function updatePaymentId(Request $request)
-    {
+public function updatePaymentId(Request $request)
+{
         // Создаем сделку
-        KingsHistory::find($request->get('id'))->update(['id' => $request->get('newId')]);
-        echo json_encode(['success' => true]);
-    }
+    KingsHistory::find($request->get('id'))->update(['id' => $request->get('newId')]);
+    echo json_encode(['success' => true]);
+}
 
-    public function updatePaymentDate(Request $request)
-    {
+public function updatePaymentDate(Request $request)
+{
         // Создаем сделку
-        KingsHistory::find($request->get('id'))->update(['created_at' => $request->get('date')]);
-        echo json_encode(['success' => true]);
-    }
+    KingsHistory::find($request->get('id'))->update(['created_at' => $request->get('date')]);
+    echo json_encode(['success' => true]);
+}
 
-    public function updatePaymentSum(Request $request)
-    {
+public function updatePaymentSum(Request $request)
+{
         // Создаем сделку
-        KingsHistory::find($request->get('id'))->update(['amount' => $request->get('sum')]);
-        echo json_encode(['success' => true]);
-    }
+    KingsHistory::find($request->get('id'))->update(['amount' => $request->get('sum')]);
+    echo json_encode(['success' => true]);
+}
 
-    public function updateWithdrawalId(Request $request)
-    {
+public function updateWithdrawalId(Request $request)
+{
         // Создаем сделку
-        Withdrawal::find($request->get('id'))->update(['id' => $request->get('newId')]);
-        echo json_encode(['success' => true]);
-    }
+    Withdrawal::find($request->get('id'))->update(['id' => $request->get('newId')]);
+    echo json_encode(['success' => true]);
+}
 
-    public function updateWithdrawalScore(Request $request)
-    {
+public function updateWithdrawalScore(Request $request)
+{
         // Создаем сделку
-        Withdrawal::find($request->get('id'))->update(['account_number' => $request->get('score')]);
-        echo json_encode(['success' => true]);
-    }
+    Withdrawal::find($request->get('id'))->update(['account_number' => $request->get('score')]);
+    echo json_encode(['success' => true]);
+}
 
 
-    public function updateWithdrawalTypeScore(Request $request)
-    {
+public function updateWithdrawalTypeScore(Request $request)
+{
         // Создаем сделку
-        Withdrawal::find($request->get('id'))->update(['requisites' => $request->get('typeScore')]);
-        echo json_encode(['success' => true]);
-    }
+    Withdrawal::find($request->get('id'))->update(['requisites' => $request->get('typeScore')]);
+    echo json_encode(['success' => true]);
+}
 
-    public function updateWithdrawalSum(Request $request)
-    {
+public function updateWithdrawalSum(Request $request)
+{
         // Создаем сделку
-        Withdrawal::find($request->get('id'))->update(['amount' => $request->get('sum')]);
-        echo json_encode(['success' => true]);
-    }
+    Withdrawal::find($request->get('id'))->update(['amount' => $request->get('sum')]);
+    echo json_encode(['success' => true]);
+}
 
 
-    public function updateWithdrawalDate(Request $request)
-    {
+public function updateWithdrawalDate(Request $request)
+{
         // Создаем сделку
-        Withdrawal::find($request->get('id'))->update(['created_at' => $request->get('date')]);
-        echo json_encode(['success' => true]);
-    }
+    Withdrawal::find($request->get('id'))->update(['created_at' => $request->get('date')]);
+    echo json_encode(['success' => true]);
+}
 
-    public function interactWithdrawal(Request $request)
-    {
+public function interactWithdrawal(Request $request)
+{
         // Создаем сделку
-        if ($request->get('btnName') == 'output_access') {
-           $w = Withdrawal::find($request->get('id'));
-           $u = User::find($w->user_id);
-           $u->balance -= $w->amount;
-           $u->save;
-           $w->status = 'Успешно';
-           $w->save;  
-        }  
-        else {
-           Withdrawal::find($request->get('id'))->update(['status' => 'Ошибка']); 
-        }
-        echo json_encode(['success' => true]);
-    }
+    if ($request->get('btnName') == 'output_access') {
+     $w = Withdrawal::find($request->get('id'));
+     $u = User::find($w->user_id);
+     $u->balance -= $w->amount;
+     $u->save;
+     $w->status = 'Успешно';
+     $w->save;  
+ }  
+ else {
+     Withdrawal::find($request->get('id'))->update(['status' => 'Ошибка']); 
+ }
+ echo json_encode(['success' => true]);
+}
 
 }

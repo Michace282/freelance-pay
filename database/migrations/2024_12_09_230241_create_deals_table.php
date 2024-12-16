@@ -13,6 +13,7 @@ return new class extends Migration
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('executor_id');
             $table->decimal('amount', 10, 2); // Сумма сделки
+            $table->decimal('comission', 10, 2); // Сумма сделки
             $table->text('deal_title')->nullable(); // Описание сделки
             $table->text('description')->nullable(); // Описание сделки
             $table->string('status'); // Статус сделки (например, 'Выполнено', 'Ожидает подтверждения')

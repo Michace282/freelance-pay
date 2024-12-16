@@ -12,6 +12,7 @@ class Deal extends Model
         'client_id',
         'executor_id',
         'amount',
+        'comission',
         'deal_title',
         'description',
         'status',

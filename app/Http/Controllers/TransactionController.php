@@ -18,13 +18,15 @@ class TransactionController extends Controller
         if ($user->hasRole('admin') || $user->hasRole('moderator')) {
         // Если пользователь админ или модератор, показываем все сделки
         $transactions = Transaction::orderBy('transaction_date','DESC')->paginate(10); // Пагинация по 10 записей на странице
+        $withdrawals = Withdrawal::orderBy('created_at','DESC')->paginate(25);
     } else {
         // Если обычный пользователь (клиент или исполнитель), показываем только его сделки
         $transactions = Transaction::where(function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })->orderBy('created_at','DESC')->paginate(10); // Пагинация по 10 записей на странице
+        $withdrawals = Withdrawal::where('user_id',auth()->user()->id)->orderBy('created_at','DESC')->paginate(25);
     }
-    return view('transactions.account', compact('transactions'));
+    return view('transactions.account', compact('transactions','withdrawals'));
 }
 
 

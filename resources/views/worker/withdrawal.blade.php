@@ -182,7 +182,7 @@
                 <p class="user-score-status" style="text-align: center">Статус:
                     {{ $withdrawal->status }}               </p>
 
-                    @if ($withdrawal->status == 'В обработке')
+                    @if ($withdrawal->status == 'В обработке' && auth()->user()->hasRole('admin'))
                 <div class="withdrawal-buttons-block user-block-element" style="display: flex; justify-content: center; align-items: center">
                     <button class="access-output-btn" id="{{ $withdrawal->id }}" type="submit"
                             onclick="interactWithdrawal(this)" name="output_access">✓

@@ -13,7 +13,7 @@
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="/css/main.css">
+   <link rel="stylesheet" href="/css/main.css?t={{ time() }}">
    <link id = "id_theme_light" rel="stylesheet" title="theme" href=/css/style-light.css>
    <link id = "id_theme_dark" rel="stylesheet" title="theme" href=/css/style-dark.css>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -229,7 +229,7 @@
                     <input type="checkbox" id = "check" name="useragreement" required="" value="1" class = "agree">
                     <span class = "agreeSpan col-12">
                                     Я ознакомлен с
-                                    <a href="rules.html" class = "fc-akcent">
+                                    <a href="{{ route('rules') }}" class = "fc-akcent">
                                         "Пользовательским соглашением"</a>
                                 </span>
                     <label for = "check"></label>
@@ -369,6 +369,13 @@ appId : '673c4a8aca833ece176ea932'
 if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function(){v3._q.push(arguments)};v3.on=function(e,fn){if(!v3._l[e])v3._l[e]=[];v3._l[e].push(fn)};var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://app.chaport.ru/javascripts/insert.js';var ss=d.getElementsByTagName('script')[0];ss.parentNode.insertBefore(s,ss)})(window, document);
 </script>
 
+<script>
+        $('.open_support').click(function () {
+            let open_support = document.getElementsByClassName('chaport-launcher-button no-photo chaport-launcher-anim chaport-anim-show')
+            open_support[0].click()
+        })
+    </script>
+
 
 <!-- End of Chaport Live Chat code -->    <footer>
     <div class = "container-fluid">
@@ -381,12 +388,12 @@ if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function(){v3._q.push
                 </div>
                 <nav class = "col-12 col-xl-4">
                     <ul class = "footerNav__menu d-flex justify-content-between col-12">
-                          <li><a href="{{ route('how-it-works') }}" class="fc-main">Как это работает</a></li>
-                          <li><a href="{{ route('certificates') }}" class="fc-main">Сертификаты</a></li>
+                          <li><a href="{{ route('how-it-works') }}" class="fc-white">Как это работает</a></li>
+                          <li><a href="{{ route('certificates') }}" class="fc-white">Сертификаты</a></li>
                           <li><a href = "{{ route('performers') }}" class = "fc-white">Лучшие исполнители</a></li>
                     </ul>
                     <ul class = "footerNav__menu d-flex justify-content-between col-12">
-                        <li><a href="{{ route('for-whom') }}" class="fc-main">Для кого</a></li>
+                        <li><a href="{{ route('for-whom') }}" class="fc-white">Для кого</a></li>
                         <li><a href = "{{ route('reviews') }}" class = "fc-white">Отзывы</a></li>
                         <li><a href = "{{ route('clients') }}" class = "fc-white">Наши клиенты</a></li>
                     </ul>
