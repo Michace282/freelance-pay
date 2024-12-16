@@ -35,10 +35,13 @@ Route::get('/performers', [PagesController::class, 'performers'])->name('perform
 Route::get('/clients', [PagesController::class, 'clients'])->name('clients');
 Route::get('/rules', [PagesController::class, 'rules'])->name('rules');
 
+
+Route::prefix('/')->middleware(['auth'])->group(function () {
 Route::get('/messages', [UserController::class, 'messages'])->name('messages');
+});    
 
 // Store a newly created deal
-Route::prefix('/')->middleware(['auth', 'check.blocked'])->group(function () {
+Route::prefix('/')->middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 Route::get('/account', [TransactionController::class, 'account'])->name('account');

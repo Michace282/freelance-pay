@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('email')->unique();
             $table->boolean('is_blocked')->default(0);
+            $table->decimal('min_sum', 10, 2)->default(0); // Сумма пополнения
+            $table->decimal('sum_transfer', 10, 2)->default(0); // Сумма перевода
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

@@ -69,6 +69,8 @@ class UserController extends Controller
             'email' => "required|email|unique:users,email,{$user->id}",
             'roles' => 'required|array',
             'is_blocked'  => 'nullable',
+            'min_sum'  => 'nullable',
+            'sum_transfer'  => 'nullable',
         ]);
 
         $is_blocked = $request->has('is_blocked') ? 1 : 0;
@@ -90,7 +92,9 @@ class UserController extends Controller
        $user->update([
         'login' => $request->login,
         'email' => $request->email,
-        'is_blocked' => $is_blocked 
+        'is_blocked' => $is_blocked,
+        'min_sum' => $request->min_sum,
+        'sum_transfer' => $request->sum_transfer,
     ]);
 
        if ($request->filled('password')) {

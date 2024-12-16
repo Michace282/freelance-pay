@@ -28,6 +28,15 @@
                 </div>
             </div>
         </div>
+         @if (auth()->user()->is_blocked)
+<div class="accountWarnings__alert fc-main">
+                        <h4 class="text-center">
+                            <nickname>{{ auth()->user()->login }}</nickname>
+                            , на данный момент, переводы и выводы для вашей учетной записи приостановлены.
+                            <span class="btn bc-red border-left"><a href="{{ route('messages') }}" class="fc-white">Подробнее</a></span>
+                        </h4>
+                    </div>
+                 @endif
     </div>
 </section>
 <section class = "accountHistory">
@@ -111,6 +120,7 @@
         </div>
         <div class="tab-content col-12" data-tab="2">
             <div class="accountHistory__table bc-block col-12 col-xl-10">
+                @if (!auth()->user()->is_blocked)
                 <div class = "order bc-main d-flex justify-content-center justify-content-xl-start align-items-center col-12">
                     <button class = "btn btn-order fc-white bc-akcent border-right">Создать перевод</button>
                 </div>
@@ -156,9 +166,11 @@
                         data-target="#myModal">Отправить</button>
                     </form>
                 </div>
+                @endif
             </div>
         </div>
         <div class="tab-content col-12" data-tab="3">
+            @if (!auth()->user()->is_blocked)
             <div class = "sendBlock col-12 col-xl-8">
                 <form action="{{ route('transaction.transfer') }}" method="POST" class="form__settings d-flex flex-column align-items-center align-items-xl-start">
                     @csrf 
@@ -174,6 +186,7 @@
                     <button class="form__btn bc-btn-g fc-white border-left d-block d-xl-none">отправить</button>
                 </form>
             </div>
+            @endif
         </div>
     </div>
 </div>

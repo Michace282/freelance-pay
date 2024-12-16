@@ -97,6 +97,15 @@
 </section>
 
 <script>
+    function calcSums() {
+        let sumInput = document.getElementsByName("sum")[0];
+        // document.getElementById('summm').innerHTML = Number(sumInput.value) + "₽";
+        document.getElementById('taxsummm').innerHTML = ((Number(sumInput.value) / 100) * 5).toFixed(2) + "₽";
+        document.getElementById('totalm').innerHTML = ((Number(sumInput.value) / 100) * 5) + Number(sumInput.value) + "₽";
+    }
+</script>
+
+<script>
     function changeRoleText(data) {
         let roleElement = document.getElementById('roleText');
         let roleField = document.getElementById('roleField');

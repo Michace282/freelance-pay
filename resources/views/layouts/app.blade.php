@@ -261,6 +261,36 @@
     </div>
 </div> -->
 <!--  Вы уверены, что хотите продолжить пополнение счета?-->
+
+@if (auth()->check())
+@if (auth()->user()->is_blocked)
+<div id="myModal" data-modal="3" class="Modal align-items-center justify-content-center modal__payment">
+    <div class="modal__content d-flex flex-column justify-content-center col-10 col-xl-3">
+        <div class="modal__header d-flex justify-content-between align-items-center">
+            <h3 class="fc-main">Внимание!</h3>
+            <span class="iconClose closeModal">×</span>
+        </div>
+        <div class="modal__body">
+            <div class="form__login d-flex flex-column justify-content-center align-items-center">
+                <p class="modal__text">Если сумма в заявке отличается от суммы перевода, то Ваш платеж может быть потерян платежной системой. Будьте внимательны при формировании заявки и отправке средств.</p>
+                <div class="agree-with-warning-block" style="display: block;">
+                    <input type="checkbox" class="agree-with-warning-checkbox" onchange="handleCheckboxChange(this)">
+                    <span style="margin-left: 8px">Я прочитал предупреждение</span>
+                    <br><br>
+                </div>
+                <div class="modalButtons">
+                    <button class="btn bc-secondary fc-white border-right trigger-button continue" id="continue-btn" type="submit" style="display: flex; justify-content: center;" onclick="createTransaction()">
+                        <p class="continue-text">Продолжить</p>
+                        <img class="loading-img" style="max-width: 50px; margin: -15px; display: none" src="https://freelance-pay.com/img/loading.webp">
+                        <span id="timer-continue" style="margin-left: 5px"></span>
+                    </button>
+                    <button style="display: none" class="btn bc-secondary fc-white border-right trigger-button paid" disabled="" onclick="paid()">Я оплатил(а)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@else
 <div id="myModal" data-modal='3' class="Modal align-items-center justify-content-center modal__payment">
     <div class="modal__content d-flex flex-column justify-content-center col-10 col-xl-3">
         <div class="modal__header d-flex justify-content-between align-items-center">
@@ -278,7 +308,9 @@
             </div>
         </div>
     </div>
-</div>		
+</div>	
+@endif  
+@endif	
 
 
 <div id="myModal" data-modal="5" class="Modal align-items-center justify-content-center modal__payment" style="display: none;">

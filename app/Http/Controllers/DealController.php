@@ -89,6 +89,10 @@ public function show($id)
     // Find the deal by ID
     $deal = Deal::findOrFail($id);
 
+    if (auth()->user()->is_blocked) {
+         redirect()->route('deals.index');
+    }
+
     // Return the view and pass the deal data
     return view('deals.show', compact('deal'));
 }

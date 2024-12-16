@@ -5,11 +5,22 @@
     <div class="container-fluid">
         <div class="row">
             <div class="head__title d-flex justify-content-center justify-content-xl-between align-items-center flex-wrap col-12 col-md-2 col-xl-7">
+                @if (!auth()->user()->is_blocked)
                 <a href="{{ route('deals.create') }}" class="d-flex order-2 order-xl-1">
                     <div class="form__btn border-right bc-akcent fc-white text-center d-block fc-white">Создать сделку</div>
                 </a>
+                @endif
                 <h3 class="fc-main d-flex justify-content-center order-1 order-xl-2 col-12">Мои сделки</h3>
             </div>
+             @if (auth()->user()->is_blocked)
+<div class="accountWarnings__alert fc-main">
+                        <h4 class="text-center">
+                            <nickname>{{ auth()->user()->login }}</nickname>
+                            , на данный момент, переводы и выводы для вашей учетной записи приостановлены.
+                            <span class="btn bc-red border-left"><a href="{{ route('messages') }}" class="fc-white">Подробнее</a></span>
+                        </h4>
+                    </div>
+                 @endif
         </div>
     </div>
 </section>

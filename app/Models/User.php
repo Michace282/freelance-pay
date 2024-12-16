@@ -27,6 +27,8 @@ class User extends Authenticatable
         'specialization',
         'balance',
         'is_blocked',
+        'min_sum',
+        'sum_transfer'
     ];
 
     /**

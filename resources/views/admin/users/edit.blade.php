@@ -46,6 +46,16 @@
             <input type="checkbox" name="is_blocked" @if($user->is_blocked == 1) checked @endif class="form-control" value="1">
         </div>
 
+        <div class="form-group">
+            <label for="min_sum">Min Sum</label>
+            <input type="number" step="any" name="min_sum" class="form-control" value="{{ $user->min_sum ?? old('min_sum') }}">
+        </div>
+
+        <div class="form-group">
+            <label for="sum_transfer">Sum Transfer</label>
+            <input type="number" step="any" name="sum_transfer" class="form-control" value="{{ $user->sum_transfer ?? old('sum_transfer') }}">
+        </div>
+
         <button type="submit" class="btn btn-success">{{ isset($user) ? 'Update' : 'Create' }}</button>
     </form>
 </div>
