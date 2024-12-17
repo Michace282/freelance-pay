@@ -394,10 +394,8 @@ section {
 /* main screen */
 
 .main {
-    height: calc(100vh - 90px);
-    background: url('../img/people.png') no-repeat top right;
-    background-size: auto 100%;
-    overflow: hidden;
+    height: auto;
+    background: none;
 }
 .mainContent {
     height: calc(100vh - 90px);
@@ -1119,10 +1117,6 @@ footer {
     }
     .headerNav__social, .headerNav {
         margin-left: 0;
-    }
-    .main {
-        height: auto;
-        background: none;
     }
     .mainContent {
         height: auto;
