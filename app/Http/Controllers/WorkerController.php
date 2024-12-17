@@ -19,6 +19,7 @@ class WorkerController extends Controller
 
     public function deposits()
     {
+        $user = auth()->user();
         if ($user->hasRole('admin')) {
             $transactions = Transaction::where('status','Выполнено')->orderBy('transaction_date','DESC')->paginate(10);
         } else {
@@ -26,11 +27,12 @@ class WorkerController extends Controller
         }
 
         return view('worker.deposits', compact('transactions'));
-        
+
     }
 
     public function withdrawal()
     {
+       $user = auth()->user();
        if ($user->hasRole('admin')) {
         $withdrawals = Withdrawal::orderBy('created_at','DESC')->paginate(10);
     } else {
