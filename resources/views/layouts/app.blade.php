@@ -5,7 +5,7 @@
    <meta name="csrf-token" content="{{ csrf_token() }}">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>freelance-pay.com</title>
+   <title>freelance-z.ru</title>
    <link href="/img/icon32.png" rel="shortcut icon" type="image/x-icon">
    <link href="/img/icon256.png" rel="apple-touch-icon"
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
@@ -33,7 +33,7 @@
                 </div>
                 <div class = "headerLogo d-flex align-items-center justify-content-center col-4 col-xl-1">
                     <div class = "headerLogo__title">
-                        <a href="/" class = "fc-main">freelance-pay.com</a>
+                        <a href="/" class = "fc-main">freelance-z.ru</a>
                     </div>
                 </div>
             <nav class="headerNav d-flex justify-content-end justify-content-xl-between align-items-center col-4 col-xl-11">
@@ -383,7 +383,7 @@ if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function(){v3._q.push
             <div class = "footerNav d-flex align-items-center flex-wrap col-12">
                 <div class = "footerNavLogo d-flex align-items-center justify-content-xl-center col-12 col-xl-1">
                     <div class = "footerNavLogo__title">
-                        <a href = "/" class = "fc-main">freelance-pay.com</a>
+                        <a href = "/" class = "fc-main"> freelance-z.ru</a>
                     </div>
                 </div>
                 <nav class = "col-12 col-xl-4">

@@ -8,7 +8,7 @@
                     <img src = "img/people.png">
                 </div>
                 <div class = "mainContent d-flex flex-column justify-content-center col-12 col-xl-7">
-                    <h1 class = "fc-main">freelance-pay.com – ТВОЙ <span class = "fc-akcent">УМНЫЙ ВЫБОР</span> СРЕДИ ФРИЛАНС-БИРЖ</h1>
+                    <h1 class = "fc-main">freelance-z.ru – ТВОЙ <span class = "fc-akcent">УМНЫЙ ВЫБОР</span> СРЕДИ ФРИЛАНС-БИРЖ</h1>
                     <div class = "mainContent__btns d-flex justify-content-center">
                                                     <a href="{{ route('deals.create') }}" class = "btn bc-secondary border-right fc-white  @if (!auth()->check()) openModal @endif" data-modal = "1">Начать сейчас</a>
                                                     @if (!auth()->check())
@@ -45,10 +45,10 @@
 
                         <p class = "fc-main">
                             Безопасная сделка гарантирует 100% предоплату,
-                            которая хранится на счете гаранта freelance-pay.com,
+                            которая хранится на счете гаранта freelance-z.ru,
                             пока исполнитель не выполнит все свои обязательства, а заказчик не получит услугу.
                             Также безопасная сделка обеспечивает сохранность средств заказчика:
-                            если исполнитель нарушает условия сделки, гарант-сервис freelance-pay.com
+                            если исполнитель нарушает условия сделки, гарант-сервис freelance-z.ru
                             возвращает средства или предлагает заказчику скидку.</p>
                     </div>
                     <div class = "safeContent__img col-12 col-xl-5">
@@ -307,7 +307,7 @@
     <section class = "adventages">
         <div class = "container-fluid">
             <div class = "row justify-content-center">
-                <h3 class = "fc-main col-12 text-center ">Почему freelance-pay.com можно доверять? </h3>
+                <h3 class = "fc-main col-12 text-center ">Почему freelance-z.ru можно доверять? </h3>
             </div>
             <div class = "row">
                 <div class = "adventagesContent d-flex align-items-center justify-content-between col-12 col-xl-11">

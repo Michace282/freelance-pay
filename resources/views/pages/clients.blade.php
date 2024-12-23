@@ -100,7 +100,7 @@
         <div class = "container-fluid">
             <div class = "row justify-content-center">
                 <div class = "head__title col-12 text-center">
-                    <h3 class = "text-center fc-main">Почему freelance-pay.com можно доверять?</h3>
+                    <h3 class = "text-center fc-main">Почему freelance-z.ru можно доверять?</h3>
                 </div>
             </div>
             <div class = "row justify-content-md-center">

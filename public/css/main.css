@@ -394,8 +394,10 @@ section {
 /* main screen */
 
 .main {
-    height: auto;
-    background: none;
+    height: calc(100vh - 90px);
+    background: url('../img/people.png') no-repeat top right;
+    background-size: auto 100%;
+    overflow: hidden;
 }
 .mainContent {
     height: calc(100vh - 90px);
@@ -1118,6 +1120,10 @@ footer {
     .headerNav__social, .headerNav {
         margin-left: 0;
     }
+    .main {
+        height: auto;
+        background: none;
+    }
     .mainContent {
         height: auto;
     }
@@ -1573,7 +1579,6 @@ footer {
     background: #FFFFFF;
     border-radius: 28px;
 }
-
 .deal__accept, .deal__waitingPay, .deal__paid, .deal__finished,.deal__arbitr {
     position: absolute;
     top: 0;
@@ -1583,7 +1588,6 @@ footer {
 }
 .deal__accept, .deal__waitingPay, .deal__paid, .deal__finished {
     background: #05BFDB;
-   
 }
 .deal__arbitr {
     background: #EB5353;
@@ -1826,6 +1830,9 @@ td div {
 
 /* system messages */
 
+.sysMessages {
+    min-height: calc(100vh - 90px - 353px);
+}
 .sysMessages__block {
     border: 3px solid #EB5353;
     border-radius: 35px 35px 0px 35px;
@@ -2143,15 +2150,5 @@ td div {
     }
 }
 
-
-html, body {
-    height: 100%;
-    margin: 0;
-}
-
-body {
-    display: grid;
-    grid-template-rows: auto 1fr auto; /* Шапка, основной контент, footer */
-}
 
 

@@ -10,7 +10,7 @@
             </div>
             <div class = "row">
                 <div class = "head__description col-12 col-xl-6">
-                    <p class = "text-center fc-main">freelance-pay.com – сервис для приема платежей и защиты онлайн сделок услуг. Для физических и юридических лиц.</p>
+                    <p class = "text-center fc-main">freelance-z.ru – сервис для приема платежей и защиты онлайн сделок услуг. Для физических и юридических лиц.</p>
                 </div>
             </div>
             <div class = "row">
@@ -57,7 +57,7 @@
         <div class = "container-fluid">
             <div class = "row justify-content-center">
                 <div class = "head__title col-12 text-center">
-                    <h2 class = "text-center fc-main">Кому полезен freelance-pay.com</h2>
+                    <h2 class = "text-center fc-main">Кому полезен freelance-z.ru</h2>
                 </div>
             </div>
             <div class = "row">
@@ -67,12 +67,12 @@
                             <img src = "img/useful1.png">
                         </div>
                         <div class = "usefulItems__item__txt border-left fc-white bc-akcent col-6">
-                            <p>Виртуальные услуги - freelance-pay.com защитит ваши интересы при продаже услуг, когда вы не можете заранее подтвердить качество исполнителя и не готовы рисковать, отдавая услуги без предоплаты.</p>
+                            <p>Виртуальные услуги - freelance-z.ru защитит ваши интересы при продаже услуг, когда вы не можете заранее подтвердить качество исполнителя и не готовы рисковать, отдавая услуги без предоплаты.</p>
                         </div>
                     </div>
                     <div class = "usefulItems__item d-flex align-items-center col-12">
                         <div class = "usefulItems__item__txt border-right fc-white bc-akcent col-6">
-                            <p>При продаже дорогой услуги freelance-pay.com необходим, так как предоплата и проверка подлинности товара, неотъемлемые условия, которые позволяют провести сделку для обеих сторон без рисков.</p>
+                            <p>При продаже дорогой услуги  freelance-z.ru необходим, так как предоплата и проверка подлинности товара, неотъемлемые условия, которые позволяют провести сделку для обеих сторон без рисков.</p>
                         </div>
                         <div class = "usefulItems__item__img text-center col-6">
                             <img src = "img/useful2.png">
@@ -83,12 +83,12 @@
                             <img src = "img/useful3.png">
                         </div>
                         <div class = "usefulItems__item__txt border-left fc-white bc-akcent col-6">
-                            <p>freelance-pay.com позволит Заказчикам безопасно произвести предоплату онлайн, а вам получить гарантию, что Заказчик заплатит после выполнения вами всех обязательств.</p>
+                            <p>freelance-z.ru позволит Заказчикам безопасно произвести предоплату онлайн, а вам получить гарантию, что Заказчик заплатит после выполнения вами всех обязательств.</p>
                         </div>
                     </div>
                     <div class = "usefulItems__item d-flex align-items-center col-12">
                         <div class = "usefulItems__item__txt border-right fc-white bc-akcent col-6">
-                            <p>Оказание услуг, в том числе удаленно - freelance-pay.com упрощает удаленную работу, так как защищает стороны от риска неисполнения обязательств: Заказчик получает гарантию, что работа будет сделана, Исполнитель – оплату оказанных услуг. freelance-pay.com обеспечит выполнение условий сделки.</p>
+                            <p>Оказание услуг, в том числе удаленно - freelance-z.ru упрощает удаленную работу, так как защищает стороны от риска неисполнения обязательств: Заказчик получает гарантию, что работа будет сделана, Исполнитель – оплату оказанных услуг.  freelance-z.ru обеспечит выполнение условий сделки.</p>
                         </div>
                         <div class = "usefulItems__item__img text-center col-6">
                             <img src = "img/useful4.png">
@@ -158,7 +158,7 @@
             <div class = "row">
                 <div class = "warningAlert text-center fc-main  col-12">
                     <p>Помните! Никогда не проверяйте человека на честность самостоятельно, так как риск потерять ваш товар очень и очень велик! </p>
-                    <p>Используйте гарант сервис freelance-pay.com.</p>
+                    <p>Используйте гарант сервис freelance-z.ru.</p>
                     <p> Мошенник никогда, не при каких условиях не согласится на безопасную сделку, на гарант сервис.</p>
                 </div>
             </div>

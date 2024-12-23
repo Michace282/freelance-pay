@@ -45,8 +45,8 @@ class ProfileController extends Controller
         $user->avatar = $request->file('avatar')->store('avatars', 'public');
     }
 
-    if ($request->has('password')) {
-        $user->password = Hash::make($request->password);
+       if ($request->filled('password')) {
+        $user->update(['password' => Hash::make($request->password)]);
     }
 
     // Handle email change
