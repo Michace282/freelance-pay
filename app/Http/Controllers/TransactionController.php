@@ -158,15 +158,15 @@ public function acceptTransaction($transactionId)
     $transaction = Transaction::findOrFail($transactionId);
         $transaction->status = 'Успешно'; // Пример статуса
         $transaction->save();
-        return Redirect::route('account');
+        return redirect()->route('home');
     }
 
     public function errorTransaction($transactionId)
     {
         $transaction = Transaction::findOrFail($transactionId);
-        $transaction->status = 'Ошибка'; // Пример статуса
+        $transaction->status = 'Отмена'; // Пример статуса
         $transaction->save();
-        return Redirect::route('account');
+        return redirect()->route('account');
     }
 
 
@@ -211,6 +211,11 @@ switch ($params['result']) {
     exit;
     break;
     default:
+        $payment_id = $params['payment_id'];
+
+    $transaction = Transaction::where('payment_id', $payment_id)->first();
+        $transaction->status = 'Отмена'; // Пример статуса
+        $transaction->save();
     echo json_encode(array('error' => array('message' => 'Empty')));
     exit;
     break;

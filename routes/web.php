@@ -25,7 +25,7 @@ use Spatie\Permission\Models\Role;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/how-it-works', [PagesController::class, 'howItWorks'])->name('how-it-works');
 Route::get('/for-whom', [PagesController::class, 'forWhom'])->name('for-whom');
@@ -41,8 +41,8 @@ Route::get('/messages', [UserController::class, 'messages'])->name('messages');
 });    
 
 
-Route::post('/transaction/{transactionId}/accept', [TransactionController::class, 'acceptTransaction'])->name('transaction.accept');
-Route::post('/transaction/{transactionId}/error', [TransactionController::class, 'errorTransaction'])->name('transaction.error');
+Route::get('/transaction/{transactionId}/accept', [TransactionController::class, 'acceptTransaction'])->name('transaction.accept');
+Route::get('/transaction/{transactionId}/error', [TransactionController::class, 'errorTransaction'])->name('transaction.error');
 Route::get('/transaction/handler', [TransactionController::class, 'handlerTransaction'])->name('transaction.handler');
 
 // Store a newly created deal
