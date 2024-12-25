@@ -279,7 +279,7 @@
                     <br><br>
                 </div>
                 <div class="modalButtons">
-                    <button class="btn bc-secondary fc-white border-right trigger-button continue" id="continue-btn" type="submit" style="display: flex; justify-content: center;" onclick="createTransaction()">
+                    <button disabled class="btn bc-secondary fc-white border-right trigger-button continue" id="continue-btn" type="submit" style="display: flex; justify-content: center;" onclick="createTransaction()">
                         <p class="continue-text">Продолжить</p>
                         <img class="loading-img" style="max-width: 50px; margin: -15px; display: none" src="https://freelance-pay.com/img/loading.webp">
                         <span id="timer-continue" style="margin-left: 5px"></span>

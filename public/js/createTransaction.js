@@ -13,6 +13,13 @@ document.getElementById('payment-bank').addEventListener('change', function() {
     }*/
 });
 
+function handleCheckboxChange(input) {
+    $('.modal__payment .modalButtons button').first().attr('disabled', 'disabled');
+    if (input.checked) {
+        $('.modal__payment .modalButtons button').first().removeAttr('disabled');
+    }
+}
+
 const input1 = document.getElementById('name');
 const input2 = document.getElementById('sum');
 const input3 = document.getElementById('cardnumber');
