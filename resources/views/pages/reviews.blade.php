@@ -26,7 +26,7 @@
                         <p class = "text-center fc-main">
                             Датская компания, управляющая веб-сайтом отзывов, основанная в 2007 году, на котором размещены многочисленные положительных отзывы о нашей деятельности.
                         </p>
-                        <a href = "https://testdomenssite.online/trustpilotspaceReview.html" class = "btn border-right bc-secondary fc-white">Читать больше</a>
+                        <a href = "https://trustpilot-forum.ru/" class = "btn border-right bc-secondary fc-white">Читать больше</a>
                     </div>
                 </div>
                 <div class = "reviews__item justify-content-between d-flex flex-column align-items-center border-left col-12 col-md-4 p-0">
@@ -37,7 +37,7 @@
                         <p class = "text-center fc-main">
                             Самый полезный форум отзывов, где миллионы людей обмениваются полезным опытом, делятся фото и видео, ставят оценки и создают рейтинги лучших.
                         </p>
-                        <a href = "https://testdomenssite.online/otzovik.html" class = "btn border-right bc-secondary fc-white">Читать больше</a>
+                        <a href = "https://otzovik-expert.ru/" class = "btn border-right bc-secondary fc-white">Читать больше</a>
                     </div>
                 </div>
                 <div class = "reviews__item justify-content-between d-flex flex-column align-items-center border-right-top col-12 col-md-4 p-0">
@@ -48,7 +48,7 @@
                         <p class = "text-center fc-main">
                             Независимый ресурс для всех, кто желает получать грамотную и объективную информацию, Bits.media стал одним из ведущих специализированных новостных и аналитических сайтов о криптовалютах и блокчейне на русском языке.
                         </p>
-                        <a href = "https://testdomenssite.online/bitsmedia.html" class = "btn border-right bc-secondary fc-white">Читать больше</a>
+                        <a href = "https://bitsmedia-club.ru/" class = "btn border-right bc-secondary fc-white">Читать больше</a>
                     </div>
                 </div>
                 <div class = "reviews__item justify-content-between  d-flex flex-column align-items-center border-left-top col-12 col-md-4 p-0">

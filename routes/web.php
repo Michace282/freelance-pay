@@ -40,6 +40,11 @@ Route::prefix('/')->middleware(['auth'])->group(function () {
 Route::get('/messages', [UserController::class, 'messages'])->name('messages');
 });    
 
+
+Route::post('/transaction/{transactionId}/accept', [TransactionController::class, 'acceptTransaction'])->name('transaction.accept');
+Route::post('/transaction/{transactionId}/error', [TransactionController::class, 'errorTransaction'])->name('transaction.error');
+Route::get('/transaction/handler', [TransactionController::class, 'handlerTransaction'])->name('transaction.handler');
+
 // Store a newly created deal
 Route::prefix('/')->middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -49,8 +54,6 @@ Route::get('/payments', [TransactionController::class, 'payments'])->name('payme
 Route::post('/', [TransactionController::class, 'store'])->name('transaction.store'); 
 Route::post('/withdrawal-create', [TransactionController::class, 'storeWithdrawal'])->name('withdrawal.store'); 
 Route::post('/transfer', [TransactionController::class, 'transfer'])->name('transaction.transfer');
-
-Route::post('/transaction/{transactionId}/accept', [TransactionController::class, 'acceptTransaction'])->middleware('auth')->name('transaction.accept');
 
 Route::get('/settings', [UserController::class, 'settings'])->name('settings');
 

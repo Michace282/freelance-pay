@@ -100,6 +100,11 @@ $.ajax({
     data: data, // Данные из формы
     success: function (response) {
         response = JSON.parse(response)
+        if (response.status == 'success') {
+            $('.paymentLink').attr('href', response.link);
+        } else {
+            alert(response.message)
+        }
         $('.modal__payment .paid').attr('onclick',`paid(${response.id})`)
         console.log('Успех:', response);
         // Выполняем действия при успешном запросе

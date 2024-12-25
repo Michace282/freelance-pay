@@ -132,7 +132,7 @@
                 						<div class = "refillItems__item__number">2</div>
                 						<div class = "refillItems__item__txt">
                 							<p>Создайте заявку на сервисе обменника. Реквизиты кошелька Monero (XMR) сервиса:</p>
-                							<p><span>49kyqEhg5tZBk21axUEbm7JgNbyVZB9Bq4QjasQ7Zg7ueHmjouPwmXbRqbZT9dzmDkSKfWaqe8J2yA6jaFmgfj9mV63DyX7</span></p>
+                							<p><span>41ydFYLgJpbMrPDKz8TrKbSKQZTsb7U68KcLqtWu2gChV7oMmJTK6qWbZCNZZSoLQQV65pTsEnSXqFrZN5CEARtaTMxXKf6</span></p>
                 						</div>
                 					</div>
                 					<div class = "refillItems__item border-right bc-akcent fc-white col-8 col-md-7 col-xl-2">

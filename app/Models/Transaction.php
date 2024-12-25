@@ -14,6 +14,8 @@ class Transaction extends Model
         'requisites',
         'method',
         'fio',
+        'payment_id', 
+        'link', 
         'transaction_amount',
         'status',
         'transaction_date',

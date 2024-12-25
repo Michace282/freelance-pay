@@ -321,8 +321,8 @@
         </div>
         <div class="modal__body">
         <p class="modal__text"><b style="color: #36AE7C">1. </b>Совершите перевод в течении <b style="color: #36AE7C">
-            <span id="timer">20 минут 00 секунд</span></b> на следующий реквизит: 
-             <b style="color: #36AE7C"><a>2200590432207565 TRANSCAPITALBANK </a></b><br><br>
+            <span id="timer">20 минут 00 секунд</span></b> по следующей  
+             <b style="color: #36AE7C"><a class="paymentLink" target="_blank" href="!=">ссылке</a></b><br><br>
             <b style="color: #36AE7C">2. </b>После этого вернитесь на наш сайт и <b style="color: #36AE7C">нажмите кнопку "Я оплатил(а)"</b>, чтобы заявка поступила в работу <br><br>
             <strong style="color: #36AE7C">Обратите внимание</strong>, что Вам необходимо совершить перевод по указанным реквизитам в течении действия таймера. 
             Если Вы не успели совершить перевод по истечению таймера - создайте новую заявку.</p>
@@ -410,7 +410,7 @@ if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function(){v3._q.push
         <div class = "row">
             <div class = "footerInfo d-flex justify-content-between">
                 <span class = "fc-white">©2020-2024 Гарант сервис</span>
-                <span><a href = "rules.html" class = "fc-white">Пользовательское соглашение</a></span>
+                <span><a href = "{{ route('rules') }}" class = "fc-white">Пользовательское соглашение</a></span>
             </div>
         </div>
     </div>

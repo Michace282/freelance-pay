@@ -104,6 +104,11 @@
                         <div class = "colContent text-center col-2">
                             <div class="fc-g">
                                 {{ $transaction->status }}
+                                @if ($transaction->status == 'В обработке' || $transaction->status == 'Проверка оплаты')
+                                    @if ($transaction->link)
+                                    <a target="_blank" href="{{ $transaction->link }}">Оплатить</a>
+                                    @endif
+                                @endif
                                 @if ($transaction->status == 'В обработке')
                                 <div class="modalButtons">
                                     <button class="btn bc-secondary fc-white border-right trigger-button paid" onclick="paid({{ $transaction->id }});">Я оплатил(а)</button>

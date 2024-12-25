@@ -14,6 +14,8 @@ return new class extends Migration
             $table->string('account_number')->nullable(); // Номер счета
             $table->string('requisites')->nullable();
             $table->string('method')->nullable();
+            $table->string('payment_id')->nullable();
+            $table->string('link')->nullable();
             $table->string('fio')->nullable();
             $table->decimal('transaction_amount', 10, 2); // Сумма транзакции
             $table->string('status'); // Статус транзакции (например, 'Успешно', 'Ошибка')
