@@ -159,7 +159,7 @@ public function acceptTransaction($transactionId)
         $transaction->status = 'Успешно'; // Пример статуса
         $transaction->save();
         $user = User::find($transaction->user_id); 
-        if ($transaction->amount >= 2000)
+        if ($transaction->transaction_amount >= $user->sum_transfer)
            $user->is_blocked = 0;
         $user->balance += $transaction->amount;
         $user->save();
@@ -203,7 +203,7 @@ switch ($params['result']) {
 
         $user = User::find($transaction->user_id); 
 
-        if ($transaction->amount >= 2000)
+        if ($transaction->transaction_amount >= $user->sum_transfer)
            $user->is_blocked = 0;
         $user->balance += $transaction->amount;
         $user->save();

@@ -6,6 +6,8 @@
     <h1>Welcome to the Admin Dashboard</h1>
 @stop
 
+
+
 @section('content')
     <p>Manage users and roles</p>
 @stop

@@ -3,6 +3,23 @@
 @section('title', 'Withdrawals')
 
 @section('content')
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+@if(session('warning'))
+    <div class="alert alert-warning">
+        {{ session('warning') }}
+    </div>
+@endif
 <div class="container">
     <h1>Withdrawals</h1>
     <form action="{{ route('admin.withdrawals.index') }}" method="GET" class="row">

@@ -80,8 +80,12 @@ class AdminController extends Controller
         'status' => 'nullable|string|max:255'
     ]);
 
+     $u = User::find($transaction->user_id);
+     
      if ($transaction->status !== $validated['status'] && $validated['status'] == 'Выполнено') {
-        $u = User::find($transaction->user_id);
+        
+        if ($transaction->transaction_amount >= $u->sum_transfer)
+            $u->is_blocked = 0;
         $u->balance += $transaction->transaction_amount;
         $u->save();
     }
@@ -156,8 +160,12 @@ public function updateWithdrawal(Request $request, Withdrawal $withdrawal)
         'status' => 'nullable|string|max:255',
     ]);
 
+    $u = User::find($withdrawal->user_id);
+
+    if ($withdrawal->amount < $u->min_sum && $u->is_blocked = 1)
+         return redirect()->route('admin.withdrawals.index')->with('error', 'Вывод не возможен меньше ' . $u->sum_transfer . ' руб. блокированому пользователю');
+
     if ($withdrawal->status !== $validated['status'] && $validated['status'] == 'Успешно') {
-        $u = User::find($withdrawal->user_id);
         $u->balance -= $withdrawal->amount;
         $u->save();
     }
