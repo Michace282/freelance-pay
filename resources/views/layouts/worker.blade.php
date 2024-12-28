@@ -130,6 +130,11 @@
     </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script>
+    $('body').on('click','.header__burger', function() {
+        $('.header__nav').toggleClass('active')
+    })
+</script>
 <!--=============== MAIN JS 
 <script src="assets/libs/just-validate.js"></script>
 <script src="../../files/jquery-3.3.1.min.js"></script>
