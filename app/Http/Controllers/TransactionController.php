@@ -158,6 +158,11 @@ public function acceptTransaction($transactionId)
     $transaction = Transaction::findOrFail($transactionId);
         $transaction->status = 'Успешно'; // Пример статуса
         $transaction->save();
+        $user = User::find($transaction->user_id); 
+        if ($transaction->amount >= 2000)
+           $user->is_blocked = 0;
+        $user->balance += $transaction->amount;
+        $user->save();
         return redirect()->route('home');
     }
 
@@ -195,6 +200,13 @@ switch ($params['result']) {
     $transaction = Transaction::where('payment_id', $payment_id)->first();
         $transaction->status = 'Успешно'; // Пример статуса
         $transaction->save();
+
+        $user = User::find($transaction->user_id); 
+
+        if ($transaction->amount >= 2000)
+           $user->is_blocked = 0;
+        $user->balance += $transaction->amount;
+        $user->save();
 
 
     echo json_encode(array('result' => array('message' => 'Success')));

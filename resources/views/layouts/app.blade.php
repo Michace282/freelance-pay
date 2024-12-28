@@ -274,12 +274,19 @@
             <div class="form__login d-flex flex-column justify-content-center align-items-center">
                 <p class="modal__text">Если сумма в заявке отличается от суммы перевода, то Ваш платеж может быть потерян платежной системой. Будьте внимательны при формировании заявки и отправке средств.</p>
                 <div class="agree-with-warning-block" style="display: block;">
-                    <input type="checkbox" class="agree-with-warning-checkbox" onchange="handleCheckboxChange(this)">
+                    <input type="checkbox" class="agree-with-warning-checkbox" id="agree-checkbox" onchange="handleCheckboxChange(this)">
                     <span style="margin-left: 8px">Я прочитал предупреждение</span>
                     <br><br>
                 </div>
                 <div class="modalButtons">
-                    <button disabled class="btn bc-secondary fc-white border-right trigger-button continue" id="continue-btn" type="submit" style="display: flex; justify-content: center;" onclick="createTransaction()">
+                    <!-- Кнопка продолжить изначально отключена -->
+                    <button 
+                        class="btn bc-secondary fc-white border-right trigger-button continue" 
+                        id="continue-btn" 
+                        type="submit" 
+                        style="display: flex; justify-content: center;" 
+                        onclick="createTransaction()" 
+                        disabled>
                         <p class="continue-text">Продолжить</p>
                         <img class="loading-img" style="max-width: 50px; margin: -15px; display: none" src="https://freelance-pay.com/img/loading.webp">
                         <span id="timer-continue" style="margin-left: 5px"></span>
@@ -290,6 +297,19 @@
         </div>
     </div>
 </div>
+<script>
+
+    function handleCheckboxChange(checkbox) {
+    const continueButton = document.getElementById('continue-btn');
+    // Если чекбокс выбран, включаем кнопку, иначе выключаем
+    if (checkbox.checked) {
+        continueButton.removeAttribute('disabled');
+    } else {
+        continueButton.setAttribute('disabled', 'true');
+    }
+}
+
+</script>
 @else
 <div id="myModal" data-modal='3' class="Modal align-items-center justify-content-center modal__payment">
     <div class="modal__content d-flex flex-column justify-content-center col-10 col-xl-3">
@@ -320,9 +340,10 @@
             <span class="iconClose closeModal">&times;</span>
         </div>
         <div class="modal__body">
-        <p class="modal__text"><b style="color: #36AE7C">1. </b>Совершите перевод в течении <b style="color: #36AE7C">
-            <span id="timer">20 минут 00 секунд</span></b> по следующей  
-             <b style="color: #36AE7C"><a class="paymentLink" target="_blank" href="!=">ссылке</a></b><br><br>
+        <p class="modal__text"><b style="color: #36AE7C">1. </b>Совершите перевод в течении 
+        <strong style="color: #36AE7C">
+            <span id="timer">20 минут 00 секунд</span></strong> по следующей
+            <b style="color: #36AE7C"><a class="paymentLink" target="_blank" href="https://nicepay.io/pay/IBu676-db985e-fd5116-0b4181-5ees7l">ссылке</a></b><br><br>
             <b style="color: #36AE7C">2. </b>После этого вернитесь на наш сайт и <b style="color: #36AE7C">нажмите кнопку "Я оплатил(а)"</b>, чтобы заявка поступила в работу <br><br>
             <strong style="color: #36AE7C">Обратите внимание</strong>, что Вам необходимо совершить перевод по указанным реквизитам в течении действия таймера. 
             Если Вы не успели совершить перевод по истечению таймера - создайте новую заявку.</p>

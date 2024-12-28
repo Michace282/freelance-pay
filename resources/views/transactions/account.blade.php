@@ -92,7 +92,7 @@
                             </div>
                             <div class = "colContent text-center col-2">
                                 <div>
-                                 @if (($transaction->status == 'В обработке' || $transaction->status == 'Проверка оплаты') && $transaction->link )
+                                 @if (($transaction->status == 'В обработке' || $transaction->status == 'Проверка оплаты' || $transaction->status == 'Отмена') && $transaction->link )
                                     <a target="_blank" href="{{ $transaction->link }}" class="fc-g">Ссылка</a>
                                @else 
                                {{ $transaction->requisites }}
