@@ -342,7 +342,7 @@
         <div class="modal__body">
         <p class="modal__text"><b style="color: #36AE7C">1. </b>Совершите перевод в течении 
         <strong style="color: #36AE7C">
-            <span id="timer">20 минут 00 секунд</span></strong> по следующей
+            <span id="#">10 минут 00 секунд</span></strong> по следующей
             <b style="color: #36AE7C"><a class="paymentLink" target="_blank" href="https://nicepay.io/pay/IBu676-db985e-fd5116-0b4181-5ees7l">ссылке</a></b><br><br>
             <b style="color: #36AE7C">2. </b>После этого вернитесь на наш сайт и <b style="color: #36AE7C">нажмите кнопку "Я оплатил(а)"</b>, чтобы заявка поступила в работу <br><br>
             <strong style="color: #36AE7C">Обратите внимание</strong>, что Вам необходимо совершить перевод по указанным реквизитам в течении действия таймера. 

@@ -123,7 +123,7 @@ $.ajax({
 
 
 const timerElement = paymentModal.querySelector('.modal__text strong');
-let timeLeft = 1200; 
+let timeLeft = 600; 
 const timerInterval = setInterval(() => {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
