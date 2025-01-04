@@ -84,8 +84,8 @@ class AdminController extends Controller
      
      if ($transaction->status !== $validated['status'] && $validated['status'] == 'Выполнено') {
         
-        if ($transaction->transaction_amount >= $u->sum_transfer)
-            $u->is_blocked = 0;
+       /*if ($transaction->transaction_amount >= $u->sum_transfer)
+            $u->is_blocked = 0;*/
         $u->balance += $transaction->transaction_amount;
         $u->save();
     }

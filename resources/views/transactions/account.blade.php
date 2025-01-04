@@ -20,8 +20,8 @@
         <div class = "row">
             <div class = "accountWarnings__description d-flex justify-content-center col-12">
                 <div class = "accountWarnings__description__txt fc-white bc-secondary border-right d-flex justify-content-center align-items-center col-6 col-md-5 col-xl-3">
-                    <p class = "text-center">freelance-pay.com не является банком, платежной системой или иной финансовой организацией и не ведет расчетные счета пользователей.
-                    Кабинет freelance-pay.com обеспечивает лишь удобство расчетов между Клиентами.</p>
+                    <p class = "text-center">freelance-z.ru не является банком, платежной системой или иной финансовой организацией и не ведет расчетные счета пользователей.
+                    Кабинет freelance-z.ru обеспечивает лишь удобство расчетов между Клиентами.</p>
                 </div>
                 <div class = "warningBlock__description__txt fc-white bc-secondary border-left d-flex justify-content-center align-items-center col-6 col-md-5 col-xl-3">
                     <p class = "text-center">Перевод осуществляется в течении 24ч.</p>

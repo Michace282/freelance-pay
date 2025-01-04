@@ -125,7 +125,7 @@
             </div>
         </div>
         <div class="footer__copyright">
-            ©2020-{{ date('Y') }} Гарант сервис freelance-pay.com
+            ©2020-{{ date('Y') }} Гарант сервис freelance-z.ru
         </div>
     </div>
 </footer>

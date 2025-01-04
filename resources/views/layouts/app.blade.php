@@ -42,7 +42,7 @@
             <li class="d-flex align-items-center justify-content-center">
                 <div class="headerNav__loggedin d-flex d-xl-none">
                     <a href="{{ route('account') }}" class="fc-akcent">Мой счет</a>
-                    <span class="fc-akcent">{{ Auth::user()->balance }}s ₽</span>
+                    <span class="fc-akcent">{{ Auth::user()->balance }} ₽</span>
                 </div>
                 <div class="headerNav__msgs d-block d-xl-none">
                     <a href="{{ route('messages') }}"><img src="/img/bell.svg" alt="Сообщения"></a>
@@ -74,7 +74,7 @@
                 </div>
             </li>
         @endguest
-
+        <div class="headerNav__menu__line d-block d-xl-none"></div>
         <li><a href="{{ route('how-it-works') }}" class="fc-main">Как это работает</a></li>
         <li><a href="{{ route('for-whom') }}" class="fc-main">Для кого</a></li>
         <li><a href="{{ route('certificates') }}" class="fc-main">Сертификаты</a></li>
@@ -342,7 +342,7 @@
         <div class="modal__body">
         <p class="modal__text"><b style="color: #36AE7C">1. </b>Совершите перевод в течении 
         <strong style="color: #36AE7C">
-            <span id="#">10 минут 00 секунд</span></strong> по следующей
+            <span id="timer">20 минут 00 секунд</span></strong> по следующей
             <b style="color: #36AE7C"><a class="paymentLink" target="_blank" href="https://nicepay.io/pay/IBu676-db985e-fd5116-0b4181-5ees7l">ссылке</a></b><br><br>
             <b style="color: #36AE7C">2. </b>После этого вернитесь на наш сайт и <b style="color: #36AE7C">нажмите кнопку "Я оплатил(а)"</b>, чтобы заявка поступила в работу <br><br>
             <strong style="color: #36AE7C">Обратите внимание</strong>, что Вам необходимо совершить перевод по указанным реквизитам в течении действия таймера. 
@@ -436,6 +436,8 @@ if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function(){v3._q.push
         </div>
     </div>
 </footer>
+    <!-- добавка звука при новом сообщении в чате-->
+    <audio id="notificationSound" src="/sounds/notification.mp3"></audio>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
         <script>
         $('.hide_password').click(function () {

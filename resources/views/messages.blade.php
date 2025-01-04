@@ -16,7 +16,7 @@
 <div class="row justify-content-center">
                     <div class="sysMessages__block fc-main col-12 col-md-10 col-xl-8">
                         <p>Уважаемый, {{ auth()->user()->login }}, ваш аккаунт был заблокирован по подозрению нарушения правил сервиса. Пожалуйста обратитесь в чат тех.поддержки.</p>
-                        <p>С уважением, Администрация freelance-pay.com.</p>
+                        <p>С уважением, Администрация freelance-z.ru.</p>
 
                     </div>
                 </div>

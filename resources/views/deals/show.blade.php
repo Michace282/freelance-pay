@@ -340,59 +340,75 @@ setTimeout(() => {
     location.reload();
 }, 500); // 2000 миллисекунд = 2 секунды
         }
-        function loadMessages(dealId) {
-            fetch(`/chat/${dealId}`)
-            .then(response => response.json())
-            .then(data => {
-                const chatMessages = document.getElementById('chatMessages');
-            chatMessages.innerHTML = ''; // Очистка чата
-            
-            data.forEach(message => {
-                let messageElement = document.createElement('div');
-                
-                // Определяем класс для сообщения
-                const isSender = message.sender_id === {{ auth()->id() }}; // Сравнение с текущим пользователем
-                messageElement.className = isSender
-                ? 'chatBlock__main__sender'
-                : (message.message_type === 'system' ? 'chatBlock__main__system' : 'chatBlock__main__user');
+        let lastMessageId = null; // Переменная для отслеживания последнего сообщения
 
-                // Генерируем содержимое сообщения
-                if (isSender) {
-                    messageElement.innerHTML = `
-                    <div id="id_chat_message">
-                    <div class="chatBlock__main__sender d-flex flex-column justify-content-end align-items-end col-12">
-                    <div class="chatBlock__main__message bc-block border-right">
-                    <span>${message.message}</span>
-                    <div class="chatBlock__main__message__info size12 d-flex justify-content-end">
-                    <span class="fc-secondary">7:01pm</span>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    `;
-                } else {
-                    messageElement.innerHTML = `
-                    <div id="id_chat_message">
-                    <div class="chatBlock__main__reciever d-flex flex-column justify-content-end col-12">
-                    <div class="chatBlock__main__reciever__name">
-                    <span>${message.message_type === 'system' ? 'Система' : (message.message_type === 'admin' ? 'Администратор' : message.sender)}</span>
-                    </div>
-                    <div class="chatBlock__main__message bc-block border-left">
-                    <span>${message.message}</span>
-                    <div class="chatBlock__main__message__info size12 d-flex justify-content-end">
-                    <span class="fc-secondary">${message.formattedCreatedAt}</span>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    `;
-                }
-                
-                // Добавляем сообщение в чат
-                chatMessages.appendChild(messageElement);
-            });
+function loadMessages(dealId) {
+    fetch(`/chat/${dealId}`)
+    .then(response => response.json())
+    .then(data => {
+        const chatMessages = document.getElementById('chatMessages');
+        chatMessages.innerHTML = ''; // Очистка чата
+        let newLastMessageId = lastMessageId;
+
+        data.forEach(message => {
+            let messageElement = document.createElement('div');
+            
+            // Определяем класс для сообщения
+            const isSender = message.sender_id === {{ auth()->id() }}; // Сравнение с текущим пользователем
+            messageElement.className = isSender
+            ? 'chatBlock__main__sender'
+            : (message.message_type === 'system' ? 'chatBlock__main__system' : 'chatBlock__main__user');
+
+            // Генерируем содержимое сообщения
+            if (isSender) {
+                messageElement.innerHTML = `
+                <div id="id_chat_message">
+                <div class="chatBlock__main__sender d-flex flex-column justify-content-end align-items-end col-12">
+                <div class="chatBlock__main__message bc-block border-right">
+                <span>${message.message}</span>
+                <div class="chatBlock__main__message__info size12 d-flex justify-content-end">
+                <span class="fc-secondary">${message.formattedCreatedAt}</span>
+                </div>
+                </div>
+                </div>
+                </div>
+                `;
+            } else {
+                messageElement.innerHTML = `
+                <div id="id_chat_message">
+                <div class="chatBlock__main__reciever d-flex flex-column justify-content-end col-12">
+                <div class="chatBlock__main__reciever__name">
+                <span>${message.message_type === 'system' ? 'Система' : (message.message_type === 'admin' ? 'Администратор' : message.sender)}</span>
+                </div>
+                <div class="chatBlock__main__message bc-block border-left">
+                <span>${message.message}</span>
+                <div class="chatBlock__main__message__info size12 d-flex justify-content-end">
+                <span class="fc-secondary">${message.formattedCreatedAt}</span>
+                </div>
+                </div>
+                </div>
+                </div>
+                `;
+            }
+
+            // Всегда обновляем ID последнего сообщения
+            if (!lastMessageId || message.id > lastMessageId) {
+                newLastMessageId = message.id; // Обновляем последний ID
+            }
+
+            // Добавляем сообщение в чат
+            chatMessages.appendChild(messageElement);
         });
+
+        // Воспроизводим звук, если есть новые сообщения любого типа
+        if (newLastMessageId > lastMessageId) {
+            const audio = document.getElementById('notificationSound');
+            audio.play();
+            lastMessageId = newLastMessageId; // Обновляем ID последнего сообщения
         }
+    })
+    
+}
 
 // Отправка сообщения через AJAX
         document.getElementById('chatForm').addEventListener('submit', function (e) {
