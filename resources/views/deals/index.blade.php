@@ -35,7 +35,7 @@
                         <td class="td-border td-border-left">
                             <div class="colTitle fc-secondary d-block d-xl-none">№</div>
                             <div class="colTitle fc-secondary d-none d-xl-block">Номер сделки</div>
-                            <div class="fc-main">{{ $deal->id }}</div>
+                            <div class="fc-main">{{ $loop->index + 1 }}</div>
                         </td>
                         <td class="td-border">
                             <div class="colTitle fc-secondary d-block d-xl-none">Название</div>

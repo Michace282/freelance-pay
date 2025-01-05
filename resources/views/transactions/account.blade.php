@@ -85,7 +85,7 @@
                         </div>
                         <div class="tableRow d-flex table__border fc-main col-12">
                             <div class = "colContent text-center col-1">
-                                <div>{{ $transaction->id }}</div>
+                                <div>{{ $loop->index + 1 }}</div>
                             </div>
                             <div class = "colContent text-center col-2 col-xl-3">
                                 <div>{{ $transaction->transaction_date }}</div>
@@ -196,7 +196,7 @@
                 </div>
                 <div class="tableRow d-flex table__border fc-main col-12">
                     <div class = "colContent text-center col-1">
-                        <div>{{ $withdrawal->id }}</div>
+                        <div>{{ $loop->iteration }}</div>
                     </div>
                     <div class = "colContent text-center col-2 col-xl-3">
                         <div>{{ $withdrawal->created_at }}</div>
