@@ -263,7 +263,6 @@
 <!--  Вы уверены, что хотите продолжить пополнение счета?-->
 
 @if (auth()->check())
-@if (auth()->user()->is_blocked)
 <div id="myModal" data-modal="3" class="Modal align-items-center justify-content-center modal__payment">
     <div class="modal__content d-flex flex-column justify-content-center col-10 col-xl-3">
         <div class="modal__header d-flex justify-content-between align-items-center">
@@ -310,26 +309,6 @@
 }
 
 </script>
-@else
-<div id="myModal" data-modal='3' class="Modal align-items-center justify-content-center modal__payment">
-    <div class="modal__content d-flex flex-column justify-content-center col-10 col-xl-3">
-        <div class="modal__header d-flex justify-content-between align-items-center">
-            <h3 class = "fc-main">Внимание</h3>
-            <span class="iconClose closeModal">&times;</span>
-        </div>
-        <div class="modal__body">
-            <div class="form__login d-flex flex-column justify-content-center align-items-center">
-                <p class="modal__text">Вы уверены, что хотите продолжить пополнение счета?</p>
-                <div class="modalButtons">
-                    <button class="btn bc-secondary fc-white border-right trigger-button continue" type="submit" style="display: flex; justify-content: center;" onclick="createTransaction()"><p>Да</p>
-					<img class="loading-img" style="max-width: 50px; margin: -15px; display: none" src = "/img/loading.webp"></button>
-                    <button style = "display: none" class="btn bc-secondary fc-white border-right trigger-button paid" disabled onclick="paid()">Я оплатил(а)</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>	
-@endif  
 @endif	
 
 
@@ -380,7 +359,7 @@
 </div>
 
 <script src="{{ asset('js/createTransaction.js') }}?t={{time()}}" charset="UTF-8"></script>
-    ﻿<!-- Begin of Chaport Live Chat code -->
+    ﻿<!-- Old Chaport Live Chat code 
 <script type="text/javascript">
 (function(w,d,v3){
 w.chaportConfig = {
@@ -398,7 +377,10 @@ if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function(){v3._q.push
     </script>
 
 
-<!-- End of Chaport Live Chat code -->    <footer>
+ End of Old Chaport Live Chat code -->   
+
+
+<footer>
     <div class = "container-fluid">
         <div class = 'row'>
             <div class = "footerNav d-flex align-items-center flex-wrap col-12">
@@ -450,16 +432,25 @@ if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function(){v3._q.push
             }
         })
     </script>
-    <!-- Begin of Chaport Live Chat code -->
-    <script type="text/javascript">
-    (function(w,d,v3){
-    w.chaportConfig = {
-    appId : '67578c02df5722170fa2c953'
-    };
+<!-- Begin of Chaport Live Chat code -->
+<script type="text/javascript">
+(function(w,d,v3){
+w.chaportConfig = {
+appId : '6779b47baea8ecaaf96ace8c'
+};
 
-    if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function(){v3._q.push(arguments)};v3.on=function(e,fn){if(!v3._l[e])v3._l[e]=[];v3._l[e].push(fn)};var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://app.chaport.ru/javascripts/insert.js';var ss=d.getElementsByTagName('script')[0];ss.parentNode.insertBefore(s,ss)})(window, document);
+if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function(){v3._q.push(arguments)};v3.on=function(e,fn){if(!v3._l[e])v3._l[e]=[];v3._l[e].push(fn)};var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://app.chaport.com/javascripts/insert.js';var ss=d.getElementsByTagName('script')[0];ss.parentNode.insertBefore(s,ss)})(window, document);
+
+
+</script>
+
+<script>
+        $('.open_support').click(function () {
+            let open_support = document.getElementsByClassName('chaport-launcher-button no-photo chaport-launcher-anim chaport-anim-show')
+            open_support[0].click()
+        })
     </script>
-    <!-- End of Chaport Live Chat code -->
+<!-- End of Chaport Live Chat code --> 
 
     <script src="/js/accordeon.js"></script>
     <script src="/js/blockopen.js"></script>
