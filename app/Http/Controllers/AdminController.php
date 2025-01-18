@@ -86,7 +86,7 @@ class AdminController extends Controller
         
        /*if ($transaction->transaction_amount >= $u->sum_transfer)
             $u->is_blocked = 0;*/
-        $u->balance += $transaction->transaction_amount;
+        $u->balance += $validated['transaction_amount'];
         $u->save();
     }
 
@@ -100,7 +100,7 @@ class AdminController extends Controller
         'method' => $validated['method'],
         'fio' => $validated['fio'],
         'status' =>  $validated['status'],
-        'transaction_amount' => $validated['transaction_amount'],
+        'transaction_amount' => $transaction->transaction_amount,
     ]);
 
 

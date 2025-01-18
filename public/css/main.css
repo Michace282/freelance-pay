@@ -2012,6 +2012,10 @@ td div {
         white-space: pre-line;
         margin-bottom: 0;
     }
+    td.td-border.td-border-left {
+   
+    width: 5%;
+}
     .status {
         white-space: nowrap;
     }
