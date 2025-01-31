@@ -71,7 +71,7 @@ class AdminController extends Controller
     {
          // Валидация формы
 
-     $validated = $request->validate([
+       $validated = $request->validate([
         'requisites' => 'required|string|max:255',
         'account_number' => 'nullable|string|max:255',
         'transaction_amount' => 'required',
@@ -80,46 +80,39 @@ class AdminController extends Controller
         'status' => 'nullable|string|max:255'
     ]);
 
-     $u = User::find($transaction->user_id);
-     
-     if ($transaction->status !== $validated['status'] && $validated['status'] == 'Выполнено') {
+       $u = User::find($transaction->user_id);
+       
+       if ($transaction->status !== $validated['status'] && $validated['status'] == 'Выполнено') {
 
-                 $transaction_amount = (float)$validated['transaction_amount']; // Основная сумма
-$percentage = 2;  // Процент (можно менять)
-$fixed_fee = 55;  // Фиксированная сумма (можно менять)
-
-// Расчет итоговой суммы
-$total_amount = $transaction_amount * (1 + $percentage / 100) + $fixed_fee;
-        
-
-       if ((float)$total_amount  >= (float)$u->sum_transfer)
-            $u->is_blocked = 0;
-        $u->balance += $validated['transaction_amount'];
-        $u->save();
-    }
+    $transaction_amount = (float)$validated['transaction_amount']; // Основная суммаф
+    if ($transaction_amount  >= (float)$u->sum_transfer)
+        $u->is_blocked = 0;
+    $u->balance += $validated['transaction_amount'];
+    $u->save();
+}
 
     // Получаем текущего пользователя
-    $user = auth()->user();
+$user = auth()->user();
 
     // Создаем сделку
-    $transaction = $transaction->update([
-        'requisites' => $validated['requisites'],
-        'account_number' => $validated['account_number'],
-        'method' => $validated['method'],
-        'fio' => $validated['fio'],
-        'status' =>  $validated['status'],
-        'transaction_amount' => $transaction->transaction_amount,
-    ]);
+$transaction = $transaction->update([
+    'requisites' => $validated['requisites'],
+    'account_number' => $validated['account_number'],
+    'method' => $validated['method'],
+    'fio' => $validated['fio'],
+    'status' =>  $validated['status'],
+    'transaction_amount' => $transaction->transaction_amount,
+]);
 
 
-    return redirect()->route('admin.transactions.index')->with('success', 'Транзакция успешно обновлена');
+return redirect()->route('admin.transactions.index')->with('success', 'Транзакция успешно обновлена');
 }
 
 public function withdrawals(Request $request)
 {
- $withdrawals_query = Withdrawal::orderBy('created_at','DESC');
+   $withdrawals_query = Withdrawal::orderBy('created_at','DESC');
 // Поиск по логину пользователя через связанную модель
- if ($request->filled('login')) {
+   if ($request->filled('login')) {
     $withdrawals_query->whereHas('user', function ($query) use ($request) {
         $query->where('login', $request->get('login'));
     });
@@ -171,24 +164,24 @@ public function updateWithdrawal(Request $request, Withdrawal $withdrawal)
     $u = User::find($withdrawal->user_id);
 
     if ($withdrawal->amount < $u->min_sum && $u->is_blocked = 1)
-         return redirect()->route('admin.withdrawals.index')->with('error', 'Вывод не возможен меньше ' . $u->sum_transfer . ' руб. блокированому пользователю');
+       return redirect()->route('admin.withdrawals.index')->with('error', 'Вывод не возможен меньше ' . $u->sum_transfer . ' руб. блокированому пользователю');
 
-    if ($withdrawal->status !== $validated['status'] && $validated['status'] == 'Успешно') {
-        $u->balance -= $withdrawal->amount;
-        $u->save();
-    }
+   if ($withdrawal->status !== $validated['status'] && $validated['status'] == 'Успешно') {
+    $u->balance -= $withdrawal->amount;
+    $u->save();
+}
 
     // Получаем текущего пользователя
-    $user = auth()->user();
+$user = auth()->user();
 
     // Создаем сделку
-    $transaction = $withdrawal->update([
-        'requisites' => $validated['requisites'],
-        'account_number' => $validated['account_number'],
-        'amount' => $validated['amount'],
-        'status' =>  $validated['status'],
-    ]);
+$transaction = $withdrawal->update([
+    'requisites' => $validated['requisites'],
+    'account_number' => $validated['account_number'],
+    'amount' => $validated['amount'],
+    'status' =>  $validated['status'],
+]);
 
-    return redirect()->route('admin.withdrawals.index')->with('success', 'Вывод успешно обновлен');
+return redirect()->route('admin.withdrawals.index')->with('success', 'Вывод успешно обновлен');
 }
 }

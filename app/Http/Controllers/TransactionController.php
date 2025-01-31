@@ -63,30 +63,30 @@ $fixed_fee = 50;  // Фиксированная сумма (можно меня�
 $total_amount = $transaction_amount * (1 - $percentage / 100) - $fixed_fee;
 
        // Создаем сделку
-        $transaction = Transaction::create([
-            'requisites' => $validated['requisites'],
-            'method' => $validated['method'],
-            'fio' => $validated['fio'],
-            'user_id' => $user->id,
-            'status' => 'В обработке',
-            'transaction_amount' => $total_amount,
-        ]);
+$transaction = Transaction::create([
+    'requisites' => $validated['requisites'],
+    'method' => $validated['method'],
+    'fio' => $validated['fio'],
+    'user_id' => $user->id,
+    'status' => 'В обработке',
+    'transaction_amount' => $total_amount,
+]);
 
-        $curl = curl_init();
+$curl = curl_init();
 
-       
+
 
 
 $payment = [
- "merchant_id" => env('NICEPAY_MERCHANT_ID'),
- "secret" => env('NICEPAY_SECRET'),
- "order_id" => $transaction->id,
- "customer" =>  $user->email,
- "amount" => $transaction_amount * 100,
- "currency" => "RUB",
- "description" => "Пополнение баланса пользователя freelance-z.ru - {$user->login}",
- "success_url" => route('transaction.accept', $transaction->id),
- "fail_url" => route('transaction.error', $transaction->id),
+   "merchant_id" => env('NICEPAY_MERCHANT_ID'),
+   "secret" => env('NICEPAY_SECRET'),
+   "order_id" => $transaction->id,
+   "customer" =>  $user->email,
+   "amount" => $transaction_amount * 100,
+   "currency" => "RUB",
+   "description" => "Пополнение баланса пользователя freelance-z.ru - {$user->login}",
+   "success_url" => route('transaction.accept', $transaction->id),
+   "fail_url" => route('transaction.error', $transaction->id),
 ];
 
 curl_setopt_array($curl, array(
@@ -108,8 +108,8 @@ $response = json_decode(curl_exec($curl));
 
 curl_close($curl);
 if ($response->status == 'success') {
-   Transaction::find($transaction->id)->update(['status'=>'Проверка оплаты', 'link' => $response->data->link,'payment_id' => $response->data->payment_id]);
-   echo json_encode(['status' => $response->status, 'id' => $transaction->id, 'link' => $response->data->link]); 
+ Transaction::find($transaction->id)->update(['status'=>'Проверка оплаты', 'link' => $response->data->link,'payment_id' => $response->data->payment_id]);
+ echo json_encode(['status' => $response->status, 'id' => $transaction->id, 'link' => $response->data->link]); 
 } else {
     echo json_encode(['status' => $response->status, 'id' => $transaction->id, 'message' => $response->data->message]);
 }
@@ -157,8 +157,8 @@ public function transfer(Request $request)
         // Redirect to the deals index page with a success message
         return redirect()->route('account')->with('success', 'Перевод успешно осуществлен!');
     } else {
-       return redirect()->route('account')->with('error', 'Пользователя такого не найдено!');
-   }
+     return redirect()->route('account')->with('error', 'Пользователя такого не найдено!');
+ }
 
 }
 
@@ -166,28 +166,23 @@ public function acceptTransaction($transactionId)
 {
     $transaction = Transaction::findOrFail($transactionId);
     $user = User::find($transaction->user_id); 
-     if ($transaction->status !== 'Успешно') {
+    if ($transaction->status !== 'Успешно') {
 
-         $transaction_amount = (float)$transaction->transaction_amount; // Основная сумма
-$percentage = 2;  // Процент (можно менять)
-$fixed_fee = 55;  // Фиксированная сумма (можно менять)
-
-// Расчет итоговой суммы
-$total_amount = $transaction_amount * (1 + $percentage / 100) + $fixed_fee;
+        $transaction_amount = (float)$transaction->transaction_amount; // Основная сумма
         $transaction->status = 'Успешно'; // Пример статуса
         $transaction->save();
         $transaction->status = 'Успешно'; // Пример статуса
         $transaction->save();
         $user = User::find($transaction->user_id); 
-        if ((float)$total_amount >= (float)$user->sum_transfer)
-           $user->is_blocked = 0;
+        if ($transaction_amount >= (float)$user->sum_transfer)
+         $user->is_blocked = 0;
 
 
-       $user->balance += $transaction->transaction_amount;
-       $user->save();
-   }
+     $user->balance += $transaction->transaction_amount;
+     $user->save();
+ }
 
-   return redirect()->route('home');
+ return redirect()->route('home');
 }
 
 public function errorTransaction($transactionId)
@@ -226,29 +221,25 @@ switch ($params['result']) {
 
     if ($transaction->status !== 'Успешно') {
                  $transaction_amount = (float)$transaction->transaction_amount; // Основная сумма
-$percentage = 2;  // Процент (можно менять)
-$fixed_fee = 55;  // Фиксированная сумма (можно менять)
-// Расчет итоговой суммы
-$total_amount = $transaction_amount * (1 + $percentage / 100) + $fixed_fee;
 
          $transaction->status = 'Успешно'; // Пример статуса
          $transaction->save();
 
-       
 
-         if ((float)$total_amount >= (float)$user->sum_transfer)
-           $user->is_blocked = 0;
-       $user->balance += $transaction->transaction_amount;
-       $user->save();
-   }
 
-   echo json_encode(array('result' => array('message' => 'Success')));
-   exit;
-   break;
-   case "error":
-   $payment_id = $params['payment_id'];
+         if ($transaction_amount >= (float)$user->sum_transfer)
+             $user->is_blocked = 0;
+         $user->balance += $transaction->transaction_amount;
+         $user->save();
+     }
 
-   $transaction = Transaction::where('payment_id', $payment_id)->first();
+     echo json_encode(array('result' => array('message' => 'Success')));
+     exit;
+     break;
+     case "error":
+     $payment_id = $params['payment_id'];
+
+     $transaction = Transaction::where('payment_id', $payment_id)->first();
         $transaction->status = 'Ошибка'; // Пример статуса
         $transaction->save();
 
