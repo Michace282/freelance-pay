@@ -55,6 +55,13 @@ public function store(Request $request)
             'fio' => 'nullable|string|max:255',
         ]);
 
+         $transaction_amount = (float)$validated['transaction_amount']; // Основная сумма
+$percentage = 2;  // Процент (можно менять)
+$fixed_fee = 50;  // Фиксированная сумма (можно менять)
+
+// Расчет итоговой суммы
+$total_amount = $transaction_amount * (1 + $percentage / 100) + $fixed_fee;
+
        // Создаем сделку
         $transaction = Transaction::create([
             'requisites' => $validated['requisites'],
@@ -62,17 +69,12 @@ public function store(Request $request)
             'fio' => $validated['fio'],
             'user_id' => $user->id,
             'status' => 'В обработке',
-            'transaction_amount' => $validated['transaction_amount'],
+            'transaction_amount' => $total_amount - (float)$validated['transaction_amount'],
         ]);
 
         $curl = curl_init();
 
-        $transaction_amount = (float)$validated['transaction_amount']; // Основная сумма
-$percentage = 2;  // Процент (можно менять)
-$fixed_fee = 50;  // Фиксированная сумма (можно менять)
-
-// Расчет итоговой суммы
-$total_amount = $transaction_amount * (1 + $percentage / 100) + $fixed_fee;
+       
 
 
 $payment = [
@@ -80,7 +82,7 @@ $payment = [
  "secret" => env('NICEPAY_SECRET'),
  "order_id" => $transaction->id,
  "customer" =>  $user->email,
- "amount" => $total_amount * 100,
+ "amount" => $transaction_amount * 100,
  "currency" => "RUB",
  "description" => "Пополнение баланса пользователя freelance-z.ru - {$user->login}",
  "success_url" => route('transaction.accept', $transaction->id),
