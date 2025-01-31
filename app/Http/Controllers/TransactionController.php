@@ -163,16 +163,14 @@ public function transfer(Request $request)
 public function acceptTransaction($transactionId)
 {
     $transaction = Transaction::findOrFail($transactionId);
+     if ($transaction->status !== 'Успешно') {
         $transaction->status = 'Успешно'; // Пример статуса
         $transaction->save();
         $user = User::find($transaction->user_id); 
-        if ($transaction->status !== 'Успешно') {
-         $transaction->status = 'Успешно'; // Пример статуса
-         $transaction->save();
-
-         $user = User::find($transaction->user_id); 
-
-         if ($transaction->transaction_amount >= $user->sum_transfer)
+        $transaction->status = 'Успешно'; // Пример статуса
+        $transaction->save();
+        $user = User::find($transaction->user_id); 
+        if ($transaction->transaction_amount >= $user->sum_transfer)
            $user->is_blocked = 0;
        $user->balance += $transaction->transaction_amount;
        $user->save();
