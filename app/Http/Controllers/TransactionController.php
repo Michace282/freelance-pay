@@ -67,18 +67,25 @@ public function store(Request $request)
 
         $curl = curl_init();
 
+        $transaction_amount = (float)$validated['transaction_amount']; // Основная сумма
+$percentage = 2;  // Процент (можно менять)
+$fixed_fee = 50;  // Фиксированная сумма (можно менять)
 
-        $payment = [
-             "merchant_id" => env('NICEPAY_MERCHANT_ID'),
-    "secret" => env('NICEPAY_SECRET'),
-    "order_id" => $transaction->id,
-    "customer" =>  $user->email,
-    "amount" => (float)$validated['transaction_amount'] * 100,
-    "currency" => "RUB",
-    "description" => "Пополнение баланса пользователя freelance-z.ru - {$user->login}",
-    "success_url" => route('transaction.accept', $transaction->id),
-    "fail_url" => route('transaction.error', $transaction->id),
-        ];
+// Расчет итоговой суммы
+$total_amount = $transaction_amount * (1 + $percentage / 100) + $fixed_fee;
+
+
+$payment = [
+ "merchant_id" => env('NICEPAY_MERCHANT_ID'),
+ "secret" => env('NICEPAY_SECRET'),
+ "order_id" => $transaction->id,
+ "customer" =>  $user->email,
+ "amount" => $total_amount * 100,
+ "currency" => "RUB",
+ "description" => "Пополнение баланса пользователя freelance-z.ru - {$user->login}",
+ "success_url" => route('transaction.accept', $transaction->id),
+ "fail_url" => route('transaction.error', $transaction->id),
+];
 
 curl_setopt_array($curl, array(
   CURLOPT_URL => 'https://nicepay.io/public/api/payment',
@@ -92,20 +99,20 @@ curl_setopt_array($curl, array(
   CURLOPT_POSTFIELDS => json_encode($payment),
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/json'
-  ),
+),
 ));
 
 $response = json_decode(curl_exec($curl));
 
 curl_close($curl);
-        if ($response->status == 'success') {
-           Transaction::find($transaction->id)->update(['status'=>'Проверка оплаты', 'link' => $response->data->link,'payment_id' => $response->data->payment_id]);
-           echo json_encode(['status' => $response->status, 'id' => $transaction->id, 'link' => $response->data->link]); 
-       } else {
-        echo json_encode(['status' => $response->status, 'id' => $transaction->id, 'message' => $response->data->message]);
-       }
-        
-    }
+if ($response->status == 'success') {
+   Transaction::find($transaction->id)->update(['status'=>'Проверка оплаты', 'link' => $response->data->link,'payment_id' => $response->data->payment_id]);
+   echo json_encode(['status' => $response->status, 'id' => $transaction->id, 'link' => $response->data->link]); 
+} else {
+    echo json_encode(['status' => $response->status, 'id' => $transaction->id, 'message' => $response->data->message]);
+}
+
+}
 
     // Redirect to the deals index page with a success message
     //return redirect()->route('account')->with('success', 'Транзакция успешно создана!');
@@ -159,16 +166,23 @@ public function acceptTransaction($transactionId)
         $transaction->status = 'Успешно'; // Пример статуса
         $transaction->save();
         $user = User::find($transaction->user_id); 
-        /*if ($transaction->transaction_amount >= $user->sum_transfer)
-           $user->is_blocked = 0;*/
-        $user->balance += $transaction->amount;
-        $user->save();
-        return redirect()->route('home');
-    }
+        if ($transaction->status !== 'Успешно') {
+         $transaction->status = 'Успешно'; // Пример статуса
+         $transaction->save();
 
-    public function errorTransaction($transactionId)
-    {
-        $transaction = Transaction::findOrFail($transactionId);
+         $user = User::find($transaction->user_id); 
+
+         if ($transaction->transaction_amount >= $user->sum_transfer)
+           $user->is_blocked = 0;
+       $user->balance += $transaction->transaction_amount;
+       $user->save();
+   }
+   return redirect()->route('home');
+}
+
+public function errorTransaction($transactionId)
+{
+    $transaction = Transaction::findOrFail($transactionId);
         $transaction->status = 'Отмена'; // Пример статуса
         $transaction->save();
         return redirect()->route('account');
@@ -198,42 +212,44 @@ switch ($params['result']) {
     $payment_id = $params['payment_id'];
 
     $transaction = Transaction::where('payment_id', $payment_id)->first();
-        $transaction->status = 'Успешно'; // Пример статуса
-        $transaction->save();
 
-        $user = User::find($transaction->user_id); 
+    if ($transaction->status !== 'Успешно') {
+         $transaction->status = 'Успешно'; // Пример статуса
+         $transaction->save();
 
-        /*if ($transaction->transaction_amount >= $user->sum_transfer)
-           $user->is_blocked = 0;*/
-        $user->balance += $transaction->amount;
-        $user->save();
+         $user = User::find($transaction->user_id); 
 
+         if ($transaction->transaction_amount >= $user->sum_transfer)
+           $user->is_blocked = 0;
+       $user->balance += $transaction->transaction_amount;
+       $user->save();
+   }
 
-    echo json_encode(array('result' => array('message' => 'Success')));
-    exit;
-    break;
-    case "error":
-    $payment_id = $params['payment_id'];
+   echo json_encode(array('result' => array('message' => 'Success')));
+   exit;
+   break;
+   case "error":
+   $payment_id = $params['payment_id'];
 
-    $transaction = Transaction::where('payment_id', $payment_id)->first();
+   $transaction = Transaction::where('payment_id', $payment_id)->first();
         $transaction->status = 'Ошибка'; // Пример статуса
         $transaction->save();
 
-    echo json_encode(array('error' => array('message' => 'Error')));
-    exit;
-    break;
-    default:
+        echo json_encode(array('error' => array('message' => 'Error')));
+        exit;
+        break;
+        default:
         $payment_id = $params['payment_id'];
 
-    $transaction = Transaction::where('payment_id', $payment_id)->first();
+        $transaction = Transaction::where('payment_id', $payment_id)->first();
         $transaction->status = 'Отмена'; // Пример статуса
         $transaction->save();
-    echo json_encode(array('error' => array('message' => 'Empty')));
-    exit;
-    break;
-}
-
+        echo json_encode(array('error' => array('message' => 'Empty')));
+        exit;
+        break;
     }
+
+}
 
 
 
