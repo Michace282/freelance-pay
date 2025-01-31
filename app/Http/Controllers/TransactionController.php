@@ -69,7 +69,8 @@ $transaction = Transaction::create([
     'fio' => $validated['fio'],
     'user_id' => $user->id,
     'status' => 'В обработке',
-    'transaction_amount' => $total_amount,
+    'transaction_amount' => $transaction_amount,
+    'transaction_amount_with_commission' => $total_amount
 ]);
 
 $curl = curl_init();
@@ -168,7 +169,7 @@ public function acceptTransaction($transactionId)
     $user = User::find($transaction->user_id); 
     if ($transaction->status !== 'Успешно') {
 
-        $transaction_amount = (float)$transaction->transaction_amount; // Основная сумма
+        $transaction_amount = (float)$transaction->transaction_amount_with_commission; // Основная сумма
         $transaction->status = 'Успешно'; // Пример статуса
         $transaction->save();
         $transaction->status = 'Успешно'; // Пример статуса
@@ -220,7 +221,7 @@ switch ($params['result']) {
     $user = User::find($transaction->user_id); 
 
     if ($transaction->status !== 'Успешно') {
-                 $transaction_amount = (float)$transaction->transaction_amount; // Основная сумма
+                 $transaction_amount = (float)$transaction->transaction_amount_with_commission; // Основная сумма
 
          $transaction->status = 'Успешно'; // Пример статуса
          $transaction->save();

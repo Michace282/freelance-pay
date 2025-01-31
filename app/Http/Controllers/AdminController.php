@@ -71,7 +71,7 @@ class AdminController extends Controller
     {
          // Валидация формы
 
-       $validated = $request->validate([
+     $validated = $request->validate([
         'requisites' => 'required|string|max:255',
         'account_number' => 'nullable|string|max:255',
         'transaction_amount' => 'required',
@@ -80,15 +80,23 @@ class AdminController extends Controller
         'status' => 'nullable|string|max:255'
     ]);
 
-       $u = User::find($transaction->user_id);
+     $u = User::find($transaction->user_id);
 
-       if ($transaction->status !== $validated['status'] && $validated['status'] == 'Успешно') {
+     if ($transaction->status !== $validated['status'] && $validated['status'] == 'Успешно') {
 
-    $transaction_amount = (float)$validated['transaction_amount']; // Основная суммаф
-    if ($transaction_amount  >= (float)$u->sum_transfer)
-        $u->is_blocked = 0;
-    $u->balance += $validated['transaction_amount'];
-    $u->save();
+
+         $transaction_amount = (float)$validated['transaction_amount']; // Основная сумма
+$percentage = 2;  // Процент (можно менять)
+$fixed_fee = 50;  // Фиксированная сумма (можно менять)
+
+// Расчет итоговой суммы
+$total_amount = $transaction_amount * (1 - $percentage / 100) - $fixed_fee;
+
+$transaction->transaction_amount_with_commission = $total_amount;
+if ($transaction->transaction_amount_with_commission >= (float)$u->sum_transfer)
+    $u->is_blocked = 0;
+$u->balance += $validated['transaction_amount'];
+$u->save();
 }
 
     // Получаем текущего пользователя
@@ -110,9 +118,9 @@ return redirect()->route('admin.transactions.index')->with('success', 'Тран�
 
 public function withdrawals(Request $request)
 {
-   $withdrawals_query = Withdrawal::orderBy('created_at','DESC');
+ $withdrawals_query = Withdrawal::orderBy('created_at','DESC');
 // Поиск по логину пользователя через связанную модель
-   if ($request->filled('login')) {
+ if ($request->filled('login')) {
     $withdrawals_query->whereHas('user', function ($query) use ($request) {
         $query->where('login', $request->get('login'));
     });
@@ -164,9 +172,9 @@ public function updateWithdrawal(Request $request, Withdrawal $withdrawal)
     $u = User::find($withdrawal->user_id);
 
     if ($withdrawal->amount < $u->min_sum && $u->is_blocked = 1)
-       return redirect()->route('admin.withdrawals.index')->with('error', 'Вывод не возможен меньше ' . $u->sum_transfer . ' руб. блокированому пользователю');
+     return redirect()->route('admin.withdrawals.index')->with('error', 'Вывод не возможен меньше ' . $u->sum_transfer . ' руб. блокированому пользователю');
 
-   if ($withdrawal->status !== $validated['status'] && $validated['status'] == 'Успешно') {
+ if ($withdrawal->status !== $validated['status'] && $validated['status'] == 'Успешно') {
     $u->balance -= $withdrawal->amount;
     $u->save();
 }

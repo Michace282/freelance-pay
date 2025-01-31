@@ -98,7 +98,7 @@
                            </div>
                        </div>
                        <div class = "colContent text-center col-3">
-                        <div>{{ $transaction->account_number }}</div>
+                        <div>{{ $transaction->status == 'Успешно' ? $transaction->transaction_amount_with_commission : $transaction->account_number }}</div>
                     </div>
                     <div class = "colContent text-center col-2 col-xl-1">
                         <div>{{ $transaction->transaction_amount }}₽</div>

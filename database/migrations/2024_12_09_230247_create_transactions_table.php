@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->string('fio')->nullable();
             $table->decimal('transaction_amount', 10, 2); // Сумма транзакции
+            $table->decimal('transaction_amount_with_commission', 10, 2); // Сумма транзакции
             $table->string('status'); // Статус транзакции (например, 'Успешно', 'Ошибка')
             $table->timestamp('transaction_date')->useCurrent(); // Дата транзакции
             $table->timestamps();

@@ -17,6 +17,7 @@ class Transaction extends Model
         'payment_id', 
         'link', 
         'transaction_amount',
+        'transaction_amount_with_commission',
         'status',
         'transaction_date',
     ];
