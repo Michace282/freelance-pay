@@ -83,9 +83,17 @@ class AdminController extends Controller
      $u = User::find($transaction->user_id);
      
      if ($transaction->status !== $validated['status'] && $validated['status'] == 'Выполнено') {
+
+                 $transaction_amount = (float)$validated['transaction_amount']; // Основная сумма
+$percentage = 2;  // Процент (можно менять)
+$fixed_fee = 55;  // Фиксированная сумма (можно менять)
+
+// Расчет итоговой суммы
+$total_amount = $transaction_amount * (1 + $percentage / 100) + $fixed_fee;
         
-       /*if ($transaction->transaction_amount >= $u->sum_transfer)
-            $u->is_blocked = 0;*/
+
+       if ((float)$total_amount  >= (float)$u->sum_transfer)
+            $u->is_blocked = 0;
         $u->balance += $validated['transaction_amount'];
         $u->save();
     }

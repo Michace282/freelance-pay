@@ -165,18 +165,28 @@ public function transfer(Request $request)
 public function acceptTransaction($transactionId)
 {
     $transaction = Transaction::findOrFail($transactionId);
+    $user = User::find($transaction->user_id); 
      if ($transaction->status !== 'Успешно') {
+
+         $transaction_amount = (float)$transaction->transaction_amount; // Основная сумма
+$percentage = 2;  // Процент (можно менять)
+$fixed_fee = 55;  // Фиксированная сумма (можно менять)
+
+// Расчет итоговой суммы
+$total_amount = $transaction_amount * (1 + $percentage / 100) + $fixed_fee;
+        $transaction->status = 'Успешно'; // Пример статуса
+        $transaction->save();
         $transaction->status = 'Успешно'; // Пример статуса
         $transaction->save();
         $user = User::find($transaction->user_id); 
-        $transaction->status = 'Успешно'; // Пример статуса
-        $transaction->save();
-        $user = User::find($transaction->user_id); 
-        if ($transaction->transaction_amount >= $user->sum_transfer)
+        if ((float)$total_amount >= (float)$user->sum_transfer)
            $user->is_blocked = 0;
+
+
        $user->balance += $transaction->transaction_amount;
        $user->save();
    }
+
    return redirect()->route('home');
 }
 
@@ -212,14 +222,21 @@ switch ($params['result']) {
     $payment_id = $params['payment_id'];
 
     $transaction = Transaction::where('payment_id', $payment_id)->first();
+    $user = User::find($transaction->user_id); 
 
     if ($transaction->status !== 'Успешно') {
+                 $transaction_amount = (float)$transaction->transaction_amount; // Основная сумма
+$percentage = 2;  // Процент (можно менять)
+$fixed_fee = 55;  // Фиксированная сумма (можно менять)
+// Расчет итоговой суммы
+$total_amount = $transaction_amount * (1 + $percentage / 100) + $fixed_fee;
+
          $transaction->status = 'Успешно'; // Пример статуса
          $transaction->save();
 
-         $user = User::find($transaction->user_id); 
+       
 
-         if ($transaction->transaction_amount >= $user->sum_transfer)
+         if ((float)$total_amount >= (float)$user->sum_transfer)
            $user->is_blocked = 0;
        $user->balance += $transaction->transaction_amount;
        $user->save();
