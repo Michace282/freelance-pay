@@ -81,8 +81,8 @@ class AdminController extends Controller
     ]);
 
        $u = User::find($transaction->user_id);
-       
-       if ($transaction->status !== $validated['status'] && $validated['status'] == 'Выполнено') {
+
+       if ($transaction->status !== $validated['status'] && $validated['status'] == 'Успешно') {
 
     $transaction_amount = (float)$validated['transaction_amount']; // Основная суммаф
     if ($transaction_amount  >= (float)$u->sum_transfer)

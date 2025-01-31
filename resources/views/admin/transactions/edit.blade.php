@@ -50,7 +50,7 @@
         <select name="status" class="form-control">
             <option {{ $transaction->status == 'В обработке' ? 'selected' : '' }} value="В обработке">В обработке</option>
             <option {{ $transaction->status == 'Проверка оплаты' ? 'selected' : '' }} value="Проверка оплаты">Проверка оплаты</option>
-            <option {{ $transaction->status == 'Выполнено' ? 'selected' : '' }} value="Выполнено">Выполнено</option>
+            <option {{ $transaction->status == 'Успешно' ? 'selected' : '' }} value="Успешно">Успешно</option>
         </select>
     </div>
 
