@@ -60,7 +60,7 @@ $percentage = 2;  // Процент (можно менять)
 $fixed_fee = 50;  // Фиксированная сумма (можно менять)
 
 // Расчет итоговой суммы
-$total_amount = $transaction_amount * (1 + $percentage / 100) + $fixed_fee;
+$total_amount = $transaction_amount * (1 - $percentage / 100) - $fixed_fee;
 
        // Создаем сделку
         $transaction = Transaction::create([
@@ -69,7 +69,7 @@ $total_amount = $transaction_amount * (1 + $percentage / 100) + $fixed_fee;
             'fio' => $validated['fio'],
             'user_id' => $user->id,
             'status' => 'В обработке',
-            'transaction_amount' => $total_amount - (float)$validated['transaction_amount'],
+            'transaction_amount' => $total_amount,
         ]);
 
         $curl = curl_init();
