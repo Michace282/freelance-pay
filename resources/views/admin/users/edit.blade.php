@@ -13,12 +13,12 @@
 
         <div class="form-group">
             <label for="login">Login</label>
-            <input type="text" name="login" class="form-control" value="{{ $user->login ?? old('login') }}" required>
+            <input type="text" name="login" readonly class="form-control" value="{{ $user->login ?? old('login') }}" required>
         </div>
 
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" name="email" class="form-control" value="{{ $user->email ?? old('email') }}" required>
+            <input type="email" name="email" readonly class="form-control" value="{{ $user->email ?? old('email') }}" required>
         </div>
 
         <div class="form-group">
