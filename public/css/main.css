@@ -2164,5 +2164,20 @@ td div {
     }
 }
 
+[role="navigation"] svg {
+    width: 10px;
+}
+[role="navigation"] {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+}
 
+[role="navigation"] > div:nth-child(1) {display:none}
+
+[role="navigation"]  span.relative.z-0.inline-flex.rtl\:flex-row-reverse.shadow-sm.rounded-md {
+    display: flex;
+    flex-wrap: wrap;
+}
 

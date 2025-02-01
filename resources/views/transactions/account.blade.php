@@ -85,7 +85,7 @@
                         </div>
                         <div class="tableRow d-flex table__border fc-main col-12">
                             <div class = "colContent text-center col-1">
-                                <div>{{ $loop->index + 1 }}</div>
+                                <div>{{ $transaction->order_number }}</div>
                             </div>
                             <div class = "colContent text-center col-2 col-xl-3">
                                 <div>{{ $transaction->transaction_date }}</div>
@@ -118,7 +118,13 @@
             </div>
         </div>
         @endforeach
-
+        <div class="accountHistory__table bc-block col-12 col-xl-10">
+                    <div class="accountHistory__table__row col-12">
+                        <div class="tableRow d-flex col-12">
+        {{$transactions->links()}}
+ </div>
+            </div>
+        </div>
     </div>
     <div class="tab-content col-12" data-tab="2">
         <div class="accountHistory__table bc-block col-12 col-xl-10">

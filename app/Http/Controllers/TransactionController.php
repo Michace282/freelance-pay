@@ -17,13 +17,13 @@ class TransactionController extends Controller
     // Проверяем роль пользователя с помощью Spatie
         if ($user->hasRole('admin') || $user->hasRole('moderator')) {
         // Если пользователь админ или модератор, показываем все сделки
-        $transactions = Transaction::orderBy('transaction_date','DESC')->paginate(10); // Пагинация по 10 записей на странице
+        $transactions = Transaction::orderBy('order_number','DESC')->selectRaw('*, ROW_NUMBER() OVER (ORDER BY created_at ASC) as order_number')->paginate(25); // Пагинация по 10 записей на странице
         $withdrawals = Withdrawal::orderBy('created_at','DESC')->paginate(25);
     } else {
         // Если обычный пользователь (клиент или исполнитель), показываем только его сделки
         $transactions = Transaction::where(function ($query) use ($user) {
             $query->where('user_id', $user->id);
-        })->orderBy('created_at','DESC')->paginate(10); // Пагинация по 10 записей на странице
+        })->selectRaw('*, ROW_NUMBER() OVER (ORDER BY created_at ASC) as order_number')->orderBy('order_number','DESC')->paginate(25); // Пагинация по 10 записей на странице
         $withdrawals = Withdrawal::where('user_id',auth()->user()->id)->orderBy('created_at','DESC')->paginate(25);
     }
     return view('transactions.account', compact('transactions','withdrawals'));

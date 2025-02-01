@@ -32,12 +32,12 @@
 
                 <div class="form__field d-flex align-items-center">
                     <label class="text-end fc-main">Имя пользователя</label>
-                    <input type="text" name="login" value="{{ old('login', $user->login) }}" class="bc-block" required>
+                    <input type="text" name="login" readonly autocomplete="off" value="{{ old('login', $user->login) }}" class="bc-block" required>
                 </div>
 
                 <div class="form__field d-flex align-items-center">
                     <label class="text-end fc-main">Email</label>
-                    <input type="email" name="email" value="{{ old('email', $user->email) }}" class="bc-block" required>
+                    <input type="email" name="email" readonly autocomplete="off" value="{{ old('email', $user->email) }}" class="bc-block" required>
                 </div>
 
                 <div class="form__field d-flex align-items-center">
