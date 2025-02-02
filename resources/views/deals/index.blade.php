@@ -12,15 +12,15 @@
                 @endif
                 <h3 class="fc-main d-flex justify-content-center order-1 order-xl-2 col-12">Мои сделки</h3>
             </div>
-             @if (auth()->user()->is_blocked)
-<div class="accountWarnings__alert fc-main">
-                        <h4 class="text-center">
-                            <nickname>{{ auth()->user()->login }}</nickname>
-                            , на данный момент, переводы и выводы для вашей учетной записи приостановлены.
-                            <span class="btn bc-red border-left"><a href="{{ route('messages') }}" class="fc-white">Подробнее</a></span>
-                        </h4>
-                    </div>
-                 @endif
+            @if (auth()->user()->is_blocked)
+            <div class="accountWarnings__alert fc-main">
+                <h4 class="text-center">
+                    <nickname>{{ auth()->user()->login }}</nickname>
+                    , на данный момент, переводы и выводы для вашей учетной записи приостановлены.
+                    <span class="btn bc-red border-left"><a href="{{ route('messages') }}" class="fc-white">Подробнее</a></span>
+                </h4>
+            </div>
+            @endif
         </div>
     </div>
 </section>
@@ -49,64 +49,68 @@
                         <td class="td-border">
                             <div class="colTitle fc-secondary">Статус</div>
                             @if ($deal->status == 'На согласовании')
-                                    <div class="fc-sog status">
-                                        {{ $deal->status }}
-                                    </div>
-                                    @endif
-                                    
-                                    @if ($deal->status == 'Ожидание оплаты')
-                                    <div class="fc-lg status">
-                                        {{ $deal->status }}
-                                    </div>
-                                    @endif
+                            <div class="fc-sog status">
+                                {{ $deal->status }}
+                            </div>
+                            @endif
+                            
+                            @if ($deal->status == 'Ожидание оплаты')
+                            <div class="fc-lg status">
+                                {{ $deal->status }}
+                            </div>
+                            @endif
 
-                                    @if ($deal->status == 'Оплачена')
-                                    <div class="fc-g status">
-                                        {{ $deal->status }}
-                                    </div>
-                                    @endif
+                            @if ($deal->status == 'Оплачена')
+                            <div class="fc-g status">
+                                {{ $deal->status }}
+                            </div>
+                            @endif
 
-                                    @if ($deal->status == 'Арбитраж')
-                                    <div class = "fc-alert status">
-                                        {{ $deal->status }}
-                                    </div>
-                                    @endif
-                                    
-                                    @if ($deal->status == 'Завершена')
-                                    <div class="fc-lg status">
-                                        {{ $deal->status }}
-                                    </div>
-                                    @endif
+                            @if ($deal->status == 'Арбитраж')
+                            <div class = "fc-alert status">
+                                {{ $deal->status }}
+                            </div>
+                            @endif
+                            
+                            @if ($deal->status == 'Завершена')
+                            <div class="fc-lg status">
+                                {{ $deal->status }}
+                            </div>
+                            @endif
                         </td>
                         <td class="td-border td-border-right">
                             <a href="{{ route('deals.show', $deal->id) }}">
                                 <div class="btn border-left bc-btn-lg fc-white">Подробнее</div>
                             </a>
                         </td>
-                          </tr>
-                          <tr class="spacing">
-                         @if ($deal->status === 'На согласовании' && auth()->id() === $deal->executor_id)
- <td class = btn-bottom style="position: relative;bottom:unset; left: unset">
-                                        <form method="POST" enctype="multipart/form-data"
-                                              action="{{ route('deal.accept', ['dealId' => $deal->id]) }}">
-                                            @csrf                                 
-                                            <button class = "fc-white bc-btn-lg d-flex align-items-center justify-content-between">Принять участие
-                                                <img src = "/img/check-btn.svg">
-                                            </button>
-                                        </form>
-                                        @endif
-                                    </td>
-                              
-                             
-                    @endforeach
-                </table>
+                    </tr>
+                    <tr class="spacing">
+                       @if ($deal->status === 'На согласовании' && auth()->id() === $deal->executor_id)
+                       <td class = btn-bottom style="position: relative;bottom:unset; left: unset">
+                        <form method="POST" enctype="multipart/form-data"
+                        action="{{ route('deal.accept', ['dealId' => $deal->id]) }}">
+                        @csrf                                 
+                        <button class = "fc-white bc-btn-lg d-flex align-items-center justify-content-between">Принять участие
+                            <img src = "/img/check-btn.svg">
+                        </button>
+                    </form>
+                    @endif
+                </td>
                 
-                <!-- Кнопки пагинации -->
-                <div class="d-flex justify-content-center">
-                    {{ $deals->links() }}
+                
+                @endforeach
+            </table>
+            
+            
+        </div>
+        <div class="accountHistory__table bc-block col-12 col-xl-10">
+            <div class="accountHistory__table__row col-12">
+                <div class="tableRow d-flex col-12">
+                    {{$deals->links()}}
                 </div>
             </div>
         </div>
     </div>
+</div>
 </section>
 @endsection

@@ -18,13 +18,13 @@ class DealController extends Controller
     // Проверяем роль пользователя с помощью Spatie
     if ($user->hasRole('admin')) {
         // Если пользователь админ или модератор, показываем все сделки
-        $deals = Deal::paginate(10); // Пагинация по 10 записей на странице
+        $deals = Deal::orderBy('order_number','DESC')->selectRaw('*, ROW_NUMBER() OVER (ORDER BY created_at ASC) as order_number')->paginate(25); // Пагинация по 10 записей на странице
     } else {
         // Если обычный пользователь (клиент или исполнитель), показываем только его сделки
         $deals = Deal::where(function ($query) use ($user) {
             $query->where('client_id', $user->id)
             ->orWhere('executor_id', $user->id);
-        })->paginate(10); // Пагинация по 10 записей на странице
+        })->orderBy('order_number','DESC')->selectRaw('*, ROW_NUMBER() OVER (ORDER BY created_at ASC) as order_number')->paginate(25); // Пагинация по 10 записей на странице
     }
 
     return view('deals.index', compact('deals'));
