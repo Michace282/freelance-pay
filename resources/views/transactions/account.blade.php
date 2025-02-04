@@ -1,6 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+@if(session('warning'))
+    <div class="alert alert-warning">
+        {{ session('warning') }}
+    </div>
+@endif
 <section class = "head">
     <div class = "container-fluid">
         <div class = "row justify-content-center">
@@ -165,7 +183,7 @@
                     @enderror
                     <div class="form__field d-flex align-items-center">
                         <label class = "text-end fc-main">Сумма</label>
-                        <input type="text" name="amount" required="" placeholder="0.000 ₽" class = "bc-block">
+                        <input type="text" name="amount" required="" placeholder="0.000 ₽" max="{{ auth()->user()->balance }}" class = "bc-block">
                     </div>
                     @error('amount')
                     <span class="text-danger">{{ $message }}</span>

@@ -124,9 +124,20 @@ if ($response->status == 'success') {
 public function storeWithdrawal(Request $request)
 {
         // Валидация формы
+    $user = auth()->user();
+
     $validated = $request->validate([
         'requisites' => 'required|string|max:255',
-        'amount' => 'required',
+        'amount' => [
+            'required',
+            'numeric',
+            'min:0.01', // Ensure at least 0.01
+            function ($attribute, $value, $fail) use ($user) {
+                if ($value > $user->balance) {
+                    $fail(__('Не должно превышать баланса :balance', ['balance' => $user->balance]));
+                }
+            },
+        ],
         'account_number' => 'nullable|string|max:255',
     ]);
 
