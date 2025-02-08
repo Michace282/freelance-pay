@@ -319,7 +319,7 @@ return [
             'text' => 'Users',
             'url' => 'admin/users',
             'icon' => 'far fa-fw fa-file',
-            'label' => $userCount,
+            'label' => '',
             'label_color' => 'success',
         ],
         [
